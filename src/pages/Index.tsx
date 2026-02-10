@@ -1,12 +1,33 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import CurtainReveal from "@/components/CurtainReveal";
+import HeroSection from "@/components/HeroSection";
+import FamiliesSection from "@/components/FamiliesSection";
+import CountdownTimer from "@/components/CountdownTimer";
+import EventsSection from "@/components/EventsSection";
+import EngagementGallery from "@/components/EngagementGallery";
+import VenueSection from "@/components/VenueSection";
+import Footer from "@/components/Footer";
 
 const Index = () => {
+  const [curtainOpen, setCurtainOpen] = useState(false);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background overflow-x-hidden">
+      {!curtainOpen && <CurtainReveal onOpen={() => setCurtainOpen(true)} />}
+
+      <main
+        className={`transition-opacity duration-500 ${
+          curtainOpen ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <HeroSection />
+        <FamiliesSection />
+        <CountdownTimer />
+        <EventsSection />
+        <EngagementGallery />
+        <VenueSection />
+        <Footer />
+      </main>
     </div>
   );
 };
