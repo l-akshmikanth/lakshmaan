@@ -3,7 +3,7 @@ import { MapPin, Navigation } from "lucide-react";
 
 const VenueSection = () => {
   return (
-    <section className="py-20 px-6">
+    <section className="py-20 px-6" id="venue">
       <ScrollAnimate className="text-center mb-14">
         <p className="font-sans text-xs tracking-[0.3em] uppercase text-muted-foreground mb-3">
           Find your way
@@ -14,7 +14,7 @@ const VenueSection = () => {
       </ScrollAnimate>
 
       <ScrollAnimate className="max-w-3xl mx-auto">
-        <div className="glass rounded-2xl overflow-hidden shadow-lg">
+        <div className="glass rounded-2xl overflow-hidden shadow-lg event-card-shimmer">
           {/* Map */}
           <div className="w-full h-[300px] md:h-[400px]">
             <iframe
@@ -44,9 +44,9 @@ const VenueSection = () => {
               href="https://www.google.com/maps/place/Surabhi+Kalyana+Mantapa/@12.5236953,76.8703581,17z"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-sans text-sm font-medium hover:bg-primary/90 transition-colors shadow-md"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-sans text-sm font-medium hover:bg-primary/90 transition-all duration-300 shadow-md hover:shadow-lg btn-ripple group"
             >
-              <Navigation className="w-4 h-4" />
+              <Navigation className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               Get Directions
             </a>
           </div>

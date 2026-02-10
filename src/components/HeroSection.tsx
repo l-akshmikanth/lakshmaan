@@ -18,32 +18,40 @@ const HeroSection = () => {
   const brideName = "Maanya";
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 overflow-hidden">
-      {/* Sparkle particles */}
+    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 overflow-hidden">
+      {/* Floating gold particles */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(25)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 rounded-full bg-primary/40"
+            className="absolute rounded-full bg-primary/30"
             style={{
+              width: `${2 + Math.random() * 4}px`,
+              height: `${2 + Math.random() * 4}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animation: `sparkle ${3 + Math.random() * 4}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 5}s`,
+              animation: `particle-rise ${5 + Math.random() * 6}s ease-in-out infinite`,
+              animationDelay: `${Math.random() * 8}s`,
             }}
           />
         ))}
       </div>
 
-      {/* Photo placeholder */}
+      {/* Photo with rotating rings */}
       <div className="relative mb-10 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-        <div className="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 border-primary/50 overflow-hidden shadow-lg shadow-primary/20">
+        {/* Outer rotating ring */}
+        <div className="absolute -inset-4 rounded-full border border-primary/20 animate-rotate-slow" />
+        {/* Inner counter-rotating ring */}
+        <div className="absolute -inset-2 rounded-full border border-dashed border-primary/15 animate-rotate-slow-reverse" />
+        {/* Pulsing glow ring */}
+        <div className="absolute -inset-6 rounded-full border border-primary/10 animate-ring-pulse" />
+
+        <div className="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 border-primary/50 overflow-hidden shadow-lg shadow-primary/20 relative z-10">
           <img src={heroPhoto} alt="Lakshmikanth & Maanya" className="w-full h-full object-cover" />
         </div>
-        <div className="absolute -inset-2 rounded-full border border-primary/20 animate-pulse" />
       </div>
 
-      {/* Names */}
+      {/* Names with shimmer */}
       {showName && (
         <div className="text-center">
           <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-wide">
@@ -58,7 +66,7 @@ const HeroSection = () => {
             ))}
           </h1>
           <p
-            className="font-serif text-2xl md:text-3xl text-primary/60 my-3 animate-fade-in italic"
+            className="font-serif text-2xl md:text-3xl text-primary/60 my-3 animate-fade-in italic animate-float"
             style={{ animationDelay: "0.8s" }}
           >
             &
@@ -77,18 +85,25 @@ const HeroSection = () => {
         </div>
       )}
 
-      {/* Gold divider */}
+      {/* Gold divider with shimmer */}
       {showDivider && (
-        <div className="mt-8 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent animate-divider-expand" />
+        <div className="mt-8 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent animate-divider-expand animate-shimmer" />
       )}
 
       {/* Date */}
       {showDate && (
-        <p
-          className="mt-6 font-sans text-lg md:text-xl tracking-[0.2em] uppercase text-muted-foreground animate-fade-up"
-        >
+        <p className="mt-6 font-sans text-lg md:text-xl tracking-[0.2em] uppercase text-muted-foreground animate-fade-up">
           March 2026
         </p>
+      )}
+
+      {/* Scroll indicator */}
+      {showDate && (
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float">
+          <div className="w-5 h-8 rounded-full border border-primary/30 flex justify-center pt-1.5">
+            <div className="w-1 h-2 rounded-full bg-primary/50 animate-fade-up" />
+          </div>
+        </div>
       )}
     </section>
   );

@@ -36,7 +36,7 @@ const EngagementGallery = () => {
     );
 
   return (
-    <section className="py-20 px-6">
+    <section className="py-20 px-6" id="gallery">
       <ScrollAnimate className="text-center mb-14">
         <p className="font-sans text-xs tracking-[0.3em] uppercase text-muted-foreground mb-3">
           A beautiful beginning
@@ -49,12 +49,12 @@ const EngagementGallery = () => {
         </p>
       </ScrollAnimate>
 
-      {/* Photo grid */}
+      {/* Photo grid with Ken Burns hover */}
       <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
         {engagementPhotos.map((photo, i) => (
-          <ScrollAnimate key={photo.id} variant="scale" delay={i * 80}>
+          <ScrollAnimate key={photo.id} variant="scale" delay={i * 100}>
             <div
-              className="aspect-square rounded-xl overflow-hidden cursor-pointer bg-champagne hover:shadow-lg transition-all duration-300 hover:scale-[1.03]"
+              className="aspect-square rounded-xl overflow-hidden cursor-pointer bg-champagne shadow-md hover:shadow-xl transition-all duration-500 ken-burns-hover"
               onClick={() => openLightbox(i)}
               role="button"
               tabIndex={0}
@@ -71,15 +71,15 @@ const EngagementGallery = () => {
         ))}
       </div>
 
-      {/* Lightbox */}
+      {/* Lightbox with zoom transition */}
       {lightboxIndex !== null && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 animate-fade-in"
           onClick={closeLightbox}
         >
           <button
             onClick={(e) => { e.stopPropagation(); closeLightbox(); }}
-            className="absolute top-4 right-4 text-white/80 hover:text-white z-10"
+            className="absolute top-4 right-4 text-white/80 hover:text-white z-10 transition-transform hover:scale-110"
             aria-label="Close lightbox"
           >
             <X className="w-8 h-8" />
@@ -87,7 +87,7 @@ const EngagementGallery = () => {
 
           <button
             onClick={(e) => { e.stopPropagation(); goPrev(); }}
-            className="absolute left-4 text-white/80 hover:text-white z-10"
+            className="absolute left-4 text-white/80 hover:text-white z-10 transition-transform hover:scale-110"
             aria-label="Previous photo"
           >
             <ChevronLeft className="w-10 h-10" />
@@ -102,7 +102,7 @@ const EngagementGallery = () => {
 
           <button
             onClick={(e) => { e.stopPropagation(); goNext(); }}
-            className="absolute right-4 text-white/80 hover:text-white z-10"
+            className="absolute right-4 text-white/80 hover:text-white z-10 transition-transform hover:scale-110"
             aria-label="Next photo"
           >
             <ChevronRight className="w-10 h-10" />
