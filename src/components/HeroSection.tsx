@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ScrollAnimate } from "./ScrollAnimate";
+import heroPhoto from "@/assets/hero-couple.jpg";
 
 const HeroSection = () => {
   const [showName, setShowName] = useState(false);
