@@ -10,7 +10,7 @@ const events = [
     variant: "left" as const,
   },
   {
-    title: "Muhurtham",
+    title: "Muhurtha",
     date: "Sunday, March 8, 2026",
     time: "10:30 AM onwards",
     venue: "Surabhi Kalyana Mantapa",
