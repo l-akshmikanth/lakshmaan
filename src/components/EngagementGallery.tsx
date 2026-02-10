@@ -2,11 +2,21 @@ import { useState } from "react";
 import { ScrollAnimate } from "./ScrollAnimate";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
-const placeholderPhotos = Array.from({ length: 6 }, (_, i) => ({
-  id: i + 1,
-  src: `/placeholder.svg`,
-  alt: `Engagement photo ${i + 1}`,
-}));
+import engagement1 from "@/assets/engagement-1.jpg";
+import engagement2 from "@/assets/engagement-2.jpg";
+import engagement3 from "@/assets/engagement-3.jpg";
+import engagement4 from "@/assets/engagement-4.jpg";
+import engagement5 from "@/assets/engagement-5.jpg";
+import engagement6 from "@/assets/engagement-6.jpg";
+
+const engagementPhotos = [
+  { id: 1, src: engagement1, alt: "Couple in garden" },
+  { id: 2, src: engagement2, alt: "Cake cutting ceremony" },
+  { id: 3, src: engagement3, alt: "Intimate moments" },
+  { id: 4, src: engagement4, alt: "Garland exchange" },
+  { id: 5, src: engagement5, alt: "Close-up portrait" },
+  { id: 6, src: engagement6, alt: "Bike ride together" },
+];
 
 const EngagementGallery = () => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -16,12 +26,12 @@ const EngagementGallery = () => {
 
   const goNext = () =>
     setLightboxIndex((prev) =>
-      prev !== null ? (prev + 1) % placeholderPhotos.length : null
+      prev !== null ? (prev + 1) % engagementPhotos.length : null
     );
   const goPrev = () =>
     setLightboxIndex((prev) =>
       prev !== null
-        ? (prev - 1 + placeholderPhotos.length) % placeholderPhotos.length
+        ? (prev - 1 + engagementPhotos.length) % engagementPhotos.length
         : null
     );
 
@@ -41,7 +51,7 @@ const EngagementGallery = () => {
 
       {/* Photo grid */}
       <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-        {placeholderPhotos.map((photo, i) => (
+        {engagementPhotos.map((photo, i) => (
           <ScrollAnimate key={photo.id} variant="scale" delay={i * 80}>
             <div
               className="aspect-square rounded-xl overflow-hidden cursor-pointer bg-champagne hover:shadow-lg transition-all duration-300 hover:scale-[1.03]"
@@ -84,8 +94,8 @@ const EngagementGallery = () => {
           </button>
 
           <img
-            src={placeholderPhotos[lightboxIndex].src}
-            alt={placeholderPhotos[lightboxIndex].alt}
+            src={engagementPhotos[lightboxIndex].src}
+            alt={engagementPhotos[lightboxIndex].alt}
             className="max-w-full max-h-[85vh] object-contain rounded-lg animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           />
