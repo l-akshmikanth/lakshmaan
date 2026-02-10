@@ -60,7 +60,11 @@
   }
 }
 
-/* Animations */
+/* ======================== */
+/* KEYFRAME ANIMATIONS      */
+/* ======================== */
+
+/* Curtain */
 @keyframes curtain-open-left {
   0% { transform: translateX(0) scaleX(1); }
   30% { transform: translateX(-5%) scaleX(0.95); }
@@ -73,7 +77,124 @@
   100% { transform: translateX(95%) scaleX(0.35); }
 }
 
-/* Curtain panels */
+/* Fade */
+@keyframes fade-up {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Scale */
+@keyframes scale-in {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Slide */
+@keyframes slide-in-left {
+  0% { opacity: 0; transform: translateX(-40px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-in-right {
+  0% { opacity: 0; transform: translateX(40px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Divider expand */
+@keyframes divider-expand {
+  0% { width: 0; opacity: 0; }
+  100% { width: 120px; opacity: 1; }
+}
+
+/* Sparkle */
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0) translateY(0); }
+  50% { opacity: 1; transform: scale(1) translateY(-30px); }
+}
+
+/* Pulse glow */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Gold shimmer sweep */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Gentle float */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* Slow rotation */
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Ring pulse */
+@keyframes ring-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.08); opacity: 0.6; }
+}
+
+/* Breathing scale */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+/* Ken Burns */
+@keyframes ken-burns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+/* Border shimmer */
+@keyframes border-shimmer {
+  0% { border-color: hsl(43 76% 52% / 0.2); }
+  50% { border-color: hsl(43 76% 52% / 0.6); }
+  100% { border-color: hsl(43 76% 52% / 0.2); }
+}
+
+/* SVG draw */
+@keyframes draw-line {
+  from { stroke-dashoffset: 200; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Stagger cascade */
+@keyframes cascade-in {
+  0% { opacity: 0; transform: translateY(50px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Button ripple */
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 0.5; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+/* Gold particle rise */
+@keyframes particle-rise {
+  0% { opacity: 0; transform: translateY(0) scale(0); }
+  20% { opacity: 1; transform: translateY(-10px) scale(1); }
+  100% { opacity: 0; transform: translateY(-80px) scale(0.5); }
+}
+
+/* ======================== */
+/* ANIMATION UTILITIES      */
+/* ======================== */
+
 .curtain-panel {
   transform-origin: top;
   will-change: transform;
@@ -115,7 +236,43 @@
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
-/* Scroll-triggered animation base */
+.animate-shimmer {
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 20s linear infinite;
+}
+
+.animate-rotate-slow-reverse {
+  animation: rotate-slow 25s linear infinite reverse;
+}
+
+.animate-ring-pulse {
+  animation: ring-pulse 3s ease-in-out infinite;
+}
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.animate-border-shimmer {
+  animation: border-shimmer 3s ease-in-out infinite;
+}
+
+.animate-cascade {
+  animation: cascade-in 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* ======================== */
+/* SCROLL ANIMATIONS        */
+/* ======================== */
+
 .scroll-animate {
   opacity: 0;
   transform: translateY(40px);
@@ -160,6 +317,10 @@
   transform: scale(1);
 }
 
+/* ======================== */
+/* EFFECTS                  */
+/* ======================== */
+
 /* Glass morphism */
 .glass {
   background: hsl(40 40% 98% / 0.15);
@@ -176,6 +337,23 @@
   background-clip: text;
 }
 
+/* Gold shimmer text */
+.gold-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    hsl(43 76% 52%) 0%,
+    hsl(43 60% 75%) 25%,
+    hsl(43 80% 60%) 50%,
+    hsl(43 60% 75%) 75%,
+    hsl(43 76% 52%) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
 /* Curtain texture */
 .curtain-texture {
   background: linear-gradient(180deg,
@@ -187,7 +365,76 @@
   );
 }
 
-/* Reduced motion */
+/* Ken Burns hover */
+.ken-burns-hover {
+  overflow: hidden;
+}
+
+.ken-burns-hover img {
+  transition: transform 6s ease;
+}
+
+.ken-burns-hover:hover img {
+  transform: scale(1.12);
+}
+
+/* Button ripple */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background: hsl(40 40% 98% / 0.4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+}
+
+.btn-ripple:active::after {
+  animation: ripple 0.6s ease-out;
+}
+
+/* SVG divider draw */
+.divider-draw {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+}
+
+.visible .divider-draw {
+  animation: draw-line 1.5s ease-out forwards;
+}
+
+.divider-dot {
+  opacity: 0;
+  transition: opacity 0.5s ease 1.2s;
+}
+
+.visible .divider-dot {
+  opacity: 1;
+}
+
+/* Event card hover shimmer border */
+.event-card-shimmer {
+  border: 1px solid hsl(43 76% 52% / 0.15);
+  transition: all 0.4s ease;
+}
+
+.event-card-shimmer:hover {
+  border-color: hsl(43 76% 52% / 0.5);
+  box-shadow: 0 0 30px hsl(43 76% 52% / 0.1);
+}
+
+/* ======================== */
+/* ACCESSIBILITY            */
+/* ======================== */
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

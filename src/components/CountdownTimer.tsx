@@ -35,7 +35,7 @@ const CountdownTimer = () => {
         <p className="font-sans text-xs tracking-[0.3em] uppercase text-muted-foreground mb-3">
           Counting down to
         </p>
-        <h2 className="font-serif text-3xl md:text-4xl gold-text font-semibold">
+        <h2 className="font-serif text-3xl md:text-4xl gold-shimmer-text font-semibold">
           Muhurtha
         </h2>
       </ScrollAnimate>
@@ -43,9 +43,10 @@ const CountdownTimer = () => {
       <div className="flex justify-center gap-3 md:gap-6 max-w-lg mx-auto">
         {units.map((unit, i) => (
           <ScrollAnimate key={unit.label} variant="scale" delay={i * 100}>
-            <div className="glass rounded-xl p-4 md:p-6 min-w-[70px] md:min-w-[90px] text-center shadow-lg">
+            <div className="glass rounded-xl p-4 md:p-6 min-w-[70px] md:min-w-[90px] text-center shadow-lg animate-breathe animate-border-shimmer"
+                 style={{ animationDelay: `${i * 500}ms` }}>
               <span
-                className="block font-serif text-3xl md:text-5xl font-bold text-foreground"
+                className="block font-serif text-3xl md:text-5xl font-bold text-foreground tabular-nums"
                 style={{ perspective: "200px" }}
               >
                 {String(unit.value).padStart(2, "0")}

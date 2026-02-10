@@ -4,16 +4,25 @@ const Footer = () => {
   return (
     <footer className="py-20 px-6 text-center">
       <ScrollAnimate>
-        {/* Decorative ornament */}
+        {/* Decorative ornament with draw animation */}
         <div className="flex justify-center mb-8">
-          <svg width="80" height="30" viewBox="0 0 80 30" className="text-primary/40">
+          <svg width="120" height="40" viewBox="0 0 120 40" className="text-primary/40">
             <path
-              d="M0 15 Q20 0 40 15 Q60 30 80 15"
+              d="M10 20 Q30 5 60 20 Q90 35 110 20"
               fill="none"
               stroke="currentColor"
               strokeWidth="1"
+              className="divider-draw"
             />
-            <circle cx="40" cy="15" r="3" fill="currentColor" />
+            <path
+              d="M20 20 Q45 10 60 20 Q75 30 100 20"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="0.5"
+              className="divider-draw"
+              style={{ animationDelay: "0.3s" }}
+            />
+            <circle cx="60" cy="20" r="3" fill="currentColor" className="divider-dot" />
           </svg>
         </div>
 
@@ -21,7 +30,7 @@ const Footer = () => {
           We are blessed to have you in our lives and would be honored by your presence on our special day.
         </p>
 
-        <h3 className="font-serif text-2xl md:text-3xl gold-text font-semibold">
+        <h3 className="font-serif text-2xl md:text-3xl gold-shimmer-text font-semibold">
           Lakshmikanth & Maanya
         </h3>
 
