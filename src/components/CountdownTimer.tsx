@@ -36,7 +36,7 @@ const CountdownTimer = () => {
           Counting down to
         </p>
         <h2 className="font-serif text-3xl md:text-4xl gold-text font-semibold">
-          Muhurtham
+          Muhurtha
         </h2>
       </ScrollAnimate>
 
