@@ -4,144 +4,191 @@ const CurtainReveal = ({ onOpen }: { onOpen: () => void }) => {
   const [isOpening, setIsOpening] = useState(false);
 
   const handleOpen = () => {
+    if (isOpening) return;
     setIsOpening(true);
-    setTimeout(onOpen, 1200);
+    setTimeout(onOpen, 1400);
   };
 
-  return (
-    <div
-      className="fixed inset-0 z-50"
-      aria-label="Wedding invitation curtain"
-    >
-      {/* Background behind curtains */}
-      <div className="absolute inset-0 bg-gradient-to-b from-amber-950 to-amber-900" />
+  // Generate fabric fold strips for realistic draping
+  const renderFolds = (side: "left" | "right") => {
+    const folds = 10;
+    return Array.from({ length: folds }, (_, i) => {
+      const position = (i / folds) * 100;
+      const isLight = i % 2 === 0;
+      return (
+        <div
+          key={i}
+          className="absolute top-0 bottom-0"
+          style={{
+            left: `${position}%`,
+            width: `${100 / folds}%`,
+            background: isLight
+              ? `linear-gradient(90deg, 
+                  hsl(43 70% 35% / 0.0) 0%,
+                  hsl(43 76% 52% / 0.15) 40%,
+                  hsl(43 60% 60% / 0.2) 50%,
+                  hsl(43 76% 52% / 0.1) 60%,
+                  hsl(43 70% 35% / 0.0) 100%)`
+              : `linear-gradient(90deg, 
+                  hsl(43 70% 35% / 0.0) 0%,
+                  hsl(43 80% 30% / 0.2) 30%,
+                  hsl(43 80% 25% / 0.3) 50%,
+                  hsl(43 80% 30% / 0.2) 70%,
+                  hsl(43 70% 35% / 0.0) 100%)`,
+          }}
+        />
+      );
+    });
+  };
 
-      {/* Curtain rod */}
-      <div className="absolute top-0 left-0 right-0 z-30 h-6 bg-gradient-to-b from-yellow-700 via-yellow-600 to-yellow-800 shadow-lg">
-        <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent h-2" />
+  // Top gathered pleats
+  const renderPleats = () =>
+    Array.from({ length: 14 }, (_, i) => (
+      <div
+        key={i}
+        className="absolute top-0"
+        style={{
+          left: `${i * 7.14}%`,
+          width: "7.14%",
+          height: "100%",
+          background: `radial-gradient(ellipse at 50% 0%, 
+            hsl(43 80% 25% / 0.35) 0%, 
+            transparent 70%)`,
+        }}
+      />
+    ));
+
+  return (
+    <div className="fixed inset-0 z-50" aria-label="Wedding invitation curtain">
+      {/* Dark background behind curtains */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `radial-gradient(ellipse at center, hsl(43 40% 20%) 0%, hsl(30 30% 10%) 100%)`,
+        }}
+      />
+
+      {/* Decorative curtain rod */}
+      <div
+        className="absolute top-0 left-0 right-0 z-30 h-5"
+        style={{
+          background: `linear-gradient(180deg, 
+            hsl(43 76% 58%) 0%, 
+            hsl(43 70% 45%) 40%, 
+            hsl(43 80% 38%) 70%, 
+            hsl(43 60% 30%) 100%)`,
+          boxShadow: "0 4px 12px hsl(43 80% 20% / 0.6)",
+        }}
+      >
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-b from-white/30 to-transparent" />
       </div>
-      {/* Rod finials */}
-      <div className="absolute top-0 left-0 w-8 h-8 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-800 z-40 shadow-lg -translate-x-1" />
-      <div className="absolute top-0 right-0 w-8 h-8 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-800 z-40 shadow-lg translate-x-1" />
 
       {/* Left curtain */}
       <div
-        className={`absolute top-6 bottom-0 left-0 w-[55%] z-20 transition-transform duration-[1200ms] ease-[cubic-bezier(0.4,0,0.2,1)] origin-top-left ${
-          isOpening ? "-translate-x-[110%] scale-x-50" : ""
+        className={`absolute top-5 bottom-0 left-0 w-[52%] z-20 curtain-panel ${
+          isOpening ? "curtain-open-left" : ""
         }`}
       >
-        {/* Base fabric */}
-        <div className="absolute inset-0 bg-gradient-to-br from-red-800 via-red-700 to-red-900" />
-        
-        {/* Fabric folds - realistic draping effect */}
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute top-0 bottom-0"
-            style={{
-              left: `${i * 12.5}%`,
-              width: "12.5%",
-              background: `linear-gradient(90deg, 
-                rgba(0,0,0,0.15) 0%, 
-                rgba(255,255,255,0.08) 30%, 
-                rgba(255,255,255,0.12) 50%, 
-                rgba(0,0,0,0.1) 70%, 
-                rgba(0,0,0,0.2) 100%)`,
-            }}
-          />
-        ))}
+        {/* Base gold fabric */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(170deg,
+              hsl(43 76% 52%) 0%,
+              hsl(43 65% 45%) 25%,
+              hsl(43 70% 42%) 50%,
+              hsl(43 65% 45%) 75%,
+              hsl(43 76% 52%) 100%)`,
+          }}
+        />
 
-        {/* Top gathered pleats */}
-        <div className="absolute top-0 left-0 right-0 h-32">
-          {[...Array(12)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute top-0"
-              style={{
-                left: `${i * 8.3}%`,
-                width: "8.3%",
-                height: "100%",
-                background: `linear-gradient(180deg, 
-                  rgba(0,0,0,0.25) 0%, 
-                  rgba(255,255,255,0.06) 40%, 
-                  transparent 100%)`,
-                borderRadius: "0 0 50% 50%",
-              }}
-            />
-          ))}
+        {/* Vertical fabric folds */}
+        {renderFolds("left")}
+
+        {/* Top pleats */}
+        <div className="absolute top-0 left-0 right-0 h-28">
+          {renderPleats()}
         </div>
 
-        {/* Velvet sheen */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/5 via-transparent to-black/15" />
-        
-        {/* Bottom hem weight */}
-        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-red-950 to-transparent" />
-        
-        {/* Gold trim on inner edge */}
-        <div className="absolute top-0 bottom-0 right-0 w-3 bg-gradient-to-r from-yellow-700/60 via-yellow-500/40 to-yellow-600/50" />
-        
-        {/* Tassel at inner edge */}
-        <div className="absolute right-0 top-24">
-          <div className="w-4 h-20 bg-gradient-to-b from-yellow-600 via-yellow-500 to-yellow-700 rounded-b-full shadow-md" />
-          <div className="w-6 h-10 -ml-1 bg-gradient-to-b from-yellow-600 to-yellow-800 rounded-b-full opacity-80" />
-        </div>
+        {/* Inner shadow for depth */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/20" />
+
+        {/* Subtle sheen */}
+        <div
+          className="absolute inset-0 opacity-30"
+          style={{
+            background: `linear-gradient(135deg, 
+              transparent 20%, 
+              hsl(43 60% 70% / 0.3) 45%, 
+              transparent 55%)`,
+          }}
+        />
+
+        {/* Bottom weight/hem */}
+        <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-black/25 to-transparent" />
+
+        {/* Gold fringe on inner edge */}
+        <div
+          className="absolute top-0 bottom-0 right-0 w-2"
+          style={{
+            background: `repeating-linear-gradient(180deg,
+              hsl(43 76% 52%) 0px, 
+              hsl(43 80% 38%) 4px, 
+              hsl(43 60% 60%) 8px)`,
+          }}
+        />
       </div>
 
       {/* Right curtain */}
       <div
-        className={`absolute top-6 bottom-0 right-0 w-[55%] z-20 transition-transform duration-[1200ms] ease-[cubic-bezier(0.4,0,0.2,1)] origin-top-right ${
-          isOpening ? "translate-x-[110%] scale-x-50" : ""
+        className={`absolute top-5 bottom-0 right-0 w-[52%] z-20 curtain-panel ${
+          isOpening ? "curtain-open-right" : ""
         }`}
       >
-        <div className="absolute inset-0 bg-gradient-to-bl from-red-800 via-red-700 to-red-900" />
-        
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute top-0 bottom-0"
-            style={{
-              left: `${i * 12.5}%`,
-              width: "12.5%",
-              background: `linear-gradient(90deg, 
-                rgba(0,0,0,0.2) 0%, 
-                rgba(255,255,255,0.1) 30%, 
-                rgba(255,255,255,0.08) 50%, 
-                rgba(0,0,0,0.12) 70%, 
-                rgba(0,0,0,0.15) 100%)`,
-            }}
-          />
-        ))}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(190deg,
+              hsl(43 76% 52%) 0%,
+              hsl(43 65% 45%) 25%,
+              hsl(43 70% 42%) 50%,
+              hsl(43 65% 45%) 75%,
+              hsl(43 76% 52%) 100%)`,
+          }}
+        />
 
-        <div className="absolute top-0 left-0 right-0 h-32">
-          {[...Array(12)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute top-0"
-              style={{
-                left: `${i * 8.3}%`,
-                width: "8.3%",
-                height: "100%",
-                background: `linear-gradient(180deg, 
-                  rgba(0,0,0,0.25) 0%, 
-                  rgba(255,255,255,0.06) 40%, 
-                  transparent 100%)`,
-                borderRadius: "0 0 50% 50%",
-              }}
-            />
-          ))}
+        {renderFolds("right")}
+
+        <div className="absolute top-0 left-0 right-0 h-28">
+          {renderPleats()}
         </div>
 
-        <div className="absolute inset-0 bg-gradient-to-l from-white/5 via-transparent to-black/15" />
-        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-red-950 to-transparent" />
-        <div className="absolute top-0 bottom-0 left-0 w-3 bg-gradient-to-l from-yellow-700/60 via-yellow-500/40 to-yellow-600/50" />
-        
-        <div className="absolute left-0 top-24">
-          <div className="w-4 h-20 bg-gradient-to-b from-yellow-600 via-yellow-500 to-yellow-700 rounded-b-full shadow-md" />
-          <div className="w-6 h-10 -ml-1 bg-gradient-to-b from-yellow-600 to-yellow-800 rounded-b-full opacity-80" />
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-black/20" />
+
+        <div
+          className="absolute inset-0 opacity-30"
+          style={{
+            background: `linear-gradient(225deg, 
+              transparent 20%, 
+              hsl(43 60% 70% / 0.3) 45%, 
+              transparent 55%)`,
+          }}
+        />
+
+        <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-black/25 to-transparent" />
+
+        <div
+          className="absolute top-0 bottom-0 left-0 w-2"
+          style={{
+            background: `repeating-linear-gradient(180deg,
+              hsl(43 76% 52%) 0px, 
+              hsl(43 80% 38%) 4px, 
+              hsl(43 60% 60%) 8px)`,
+          }}
+        />
       </div>
 
-      {/* Red ribbon bow in center */}
+      {/* Red ribbon with bow — click target */}
       {!isOpening && (
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 cursor-pointer group"
@@ -151,30 +198,70 @@ const CurtainReveal = ({ onOpen }: { onOpen: () => void }) => {
           onKeyDown={(e) => e.key === "Enter" && handleOpen()}
           aria-label="Pull ribbon to open invitation"
         >
-          {/* Ribbon tails hanging down */}
-          <div className="absolute top-16 left-1/2 -translate-x-1/2 flex gap-2">
-            <div className="w-5 h-28 bg-gradient-to-b from-red-600 via-red-500 to-red-700 rounded-b-full transform -rotate-6 shadow-lg" />
-            <div className="w-5 h-32 bg-gradient-to-b from-red-600 via-red-500 to-red-700 rounded-b-full transform rotate-6 shadow-lg" />
+          {/* Ribbon tails */}
+          <div className="absolute top-8 left-1/2 -translate-x-1/2 flex gap-1">
+            <div
+              className="w-5 h-24 rounded-b-full -rotate-6 shadow-lg"
+              style={{
+                background: `linear-gradient(180deg, hsl(0 70% 45%) 0%, hsl(0 75% 35%) 100%)`,
+              }}
+            />
+            <div
+              className="w-5 h-28 rounded-b-full rotate-6 shadow-lg"
+              style={{
+                background: `linear-gradient(180deg, hsl(0 70% 45%) 0%, hsl(0 75% 35%) 100%)`,
+              }}
+            />
           </div>
 
-          {/* Bow left loop */}
-          <div className="absolute -left-14 top-1 w-14 h-10 rounded-full bg-gradient-to-br from-red-500 via-red-600 to-red-700 transform -rotate-12 shadow-md border border-red-400/30" />
-          {/* Bow right loop */}
-          <div className="absolute -right-14 top-1 w-14 h-10 rounded-full bg-gradient-to-bl from-red-500 via-red-600 to-red-700 transform rotate-12 shadow-md border border-red-400/30" />
-          
-          {/* Bow center knot */}
-          <div className="relative w-10 h-10 rounded-full bg-gradient-to-br from-red-500 to-red-800 shadow-xl border-2 border-red-400/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <div className="w-3 h-3 rounded-full bg-yellow-400/80 shadow-inner" />
+          {/* Bow left */}
+          <div
+            className="absolute -left-12 top-0 w-12 h-8 rounded-full -rotate-12 shadow-md"
+            style={{
+              background: `linear-gradient(135deg, hsl(0 65% 50%) 0%, hsl(0 70% 40%) 100%)`,
+              border: "1px solid hsl(0 50% 55% / 0.4)",
+            }}
+          />
+          {/* Bow right */}
+          <div
+            className="absolute -right-12 top-0 w-12 h-8 rounded-full rotate-12 shadow-md"
+            style={{
+              background: `linear-gradient(225deg, hsl(0 65% 50%) 0%, hsl(0 70% 40%) 100%)`,
+              border: "1px solid hsl(0 50% 55% / 0.4)",
+            }}
+          />
+
+          {/* Center knot */}
+          <div
+            className="relative w-9 h-9 rounded-full shadow-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+            style={{
+              background: `radial-gradient(circle at 40% 35%, hsl(0 60% 55%), hsl(0 75% 35%))`,
+              border: "2px solid hsl(0 50% 55% / 0.5)",
+            }}
+          >
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ background: `hsl(43 76% 52%)` }}
+            />
           </div>
 
-          {/* Pulsing glow */}
-          <div className="absolute -inset-8 rounded-full bg-red-500/20 animate-pulse-glow pointer-events-none" />
+          {/* Pulsing glow ring */}
+          <div
+            className="absolute -inset-6 rounded-full animate-pulse-glow pointer-events-none"
+            style={{ background: `hsl(0 60% 50% / 0.15)` }}
+          />
 
-          {/* Text below ribbon */}
-          <p className="absolute top-52 left-1/2 -translate-x-1/2 whitespace-nowrap font-serif text-yellow-200/90 text-sm tracking-[0.2em] uppercase animate-pulse-glow">
+          {/* Text */}
+          <p
+            className="absolute top-44 left-1/2 -translate-x-1/2 whitespace-nowrap font-serif text-sm tracking-[0.2em] uppercase animate-pulse-glow"
+            style={{ color: `hsl(43 60% 70%)` }}
+          >
             Pull the ribbon
           </p>
-          <p className="absolute top-60 left-1/2 -translate-x-1/2 whitespace-nowrap font-serif text-yellow-200/50 text-xs italic">
+          <p
+            className="absolute top-52 left-1/2 -translate-x-1/2 whitespace-nowrap font-serif text-xs italic"
+            style={{ color: `hsl(43 60% 70% / 0.5)` }}
+          >
             Lakshmikanth & Maanya
           </p>
         </div>

@@ -61,72 +61,30 @@
 }
 
 /* Animations */
-@keyframes curtain-left {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
+@keyframes curtain-open-left {
+  0% { transform: translateX(0) scaleX(1); }
+  30% { transform: translateX(-5%) scaleX(0.95); }
+  100% { transform: translateX(-95%) scaleX(0.35); }
 }
 
-@keyframes curtain-right {
-  from { transform: translateX(0); }
-  to { transform: translateX(100%); }
+@keyframes curtain-open-right {
+  0% { transform: translateX(0) scaleX(1); }
+  30% { transform: translateX(5%) scaleX(0.95); }
+  100% { transform: translateX(95%) scaleX(0.35); }
 }
 
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Curtain panels */
+.curtain-panel {
+  transform-origin: top;
+  will-change: transform;
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.curtain-open-left {
+  animation: curtain-open-left 1.3s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
 }
 
-@keyframes slide-in-left {
-  from { opacity: 0; transform: translateX(-60px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes slide-in-right {
-  from { opacity: 0; transform: translateX(60px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes scale-in {
-  from { opacity: 0; transform: scale(0.85); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes divider-expand {
-  from { width: 0; }
-  to { width: 120px; }
-}
-
-@keyframes pulse-glow {
-  0%, 100% { opacity: 0.6; text-shadow: 0 0 20px hsl(43 76% 52% / 0.3); }
-  50% { opacity: 1; text-shadow: 0 0 40px hsl(43 76% 52% / 0.6); }
-}
-
-@keyframes sparkle {
-  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
-  50% { opacity: 1; transform: scale(1) rotate(180deg); }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-}
-
-@keyframes flip-in {
-  from { transform: rotateX(90deg); opacity: 0; }
-  to { transform: rotateX(0deg); opacity: 1; }
-}
-
-.animate-curtain-left {
-  animation: curtain-left 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-}
-
-.animate-curtain-right {
-  animation: curtain-right 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+.curtain-open-right {
+  animation: curtain-open-right 1.3s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
 }
 
 .animate-fade-up {
