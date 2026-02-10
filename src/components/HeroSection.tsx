@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ScrollAnimate } from "./ScrollAnimate";
+import heroPhoto from "@/assets/hero-couple.jpg";
 
 const HeroSection = () => {
   const [showName, setShowName] = useState(false);
@@ -36,8 +37,8 @@ const HeroSection = () => {
 
       {/* Photo placeholder */}
       <div className="relative mb-10 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-        <div className="w-40 h-40 md:w-52 md:h-52 rounded-full border-4 border-primary/50 overflow-hidden shadow-lg shadow-primary/20 bg-champagne flex items-center justify-center">
-          <span className="font-serif text-primary text-3xl md:text-4xl">L & M</span>
+        <div className="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 border-primary/50 overflow-hidden shadow-lg shadow-primary/20">
+          <img src={heroPhoto} alt="Lakshmikanth & Maanya" className="w-full h-full object-cover" />
         </div>
         <div className="absolute -inset-2 rounded-full border border-primary/20 animate-pulse" />
       </div>
