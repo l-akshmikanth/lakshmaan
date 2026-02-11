@@ -19,8 +19,18 @@ const HeroSection = () => {
 
   return (
     <section id="home" className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 overflow-hidden">
+      {/* Full-bleed background image */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={heroPhoto}
+          alt=""
+          className="w-full h-full object-cover animate-ken-burns"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90" />
+      </div>
+
       {/* Floating gold particles */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none z-[1]">
         {[...Array(25)].map((_, i) => (
           <div
             key={i}

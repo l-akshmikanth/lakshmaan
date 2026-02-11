@@ -8,9 +8,7 @@ import CountdownTimer from "@/components/CountdownTimer";
 import AddToCalendar from "@/components/AddToCalendar";
 import EventsSection from "@/components/EventsSection";
 import EngagementGallery from "@/components/EngagementGallery";
-import BlessingsSection from "@/components/BlessingsSection";
 import VenueSection from "@/components/VenueSection";
-import RSVPSection from "@/components/RSVPSection";
 import Footer from "@/components/Footer";
 import MusicPlayer from "@/components/MusicPlayer";
 
@@ -50,11 +48,7 @@ const Index = () => {
             <SectionDivider />
             <EngagementGallery />
             <SectionDivider />
-            <BlessingsSection />
-            <SectionDivider />
             <VenueSection />
-            <SectionDivider />
-            <RSVPSection />
             <Footer />
           </main>
           <MusicPlayer />
