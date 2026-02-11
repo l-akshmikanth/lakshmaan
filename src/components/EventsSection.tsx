@@ -1,6 +1,7 @@
 import { ScrollAnimate } from "./ScrollAnimate";
 import { CalendarDays, Clock, MapPin } from "lucide-react";
 import KolamPattern from "./KolamPattern";
+import ScratchReveal from "./ScratchReveal";
 
 const events = [
   {
@@ -44,7 +45,7 @@ const EventsSection = () => {
               <div className="space-y-4 text-muted-foreground">
                 <div className="flex items-center justify-center gap-2">
                   <CalendarDays className="w-4 h-4 text-primary transition-transform duration-300 group-hover:scale-110" />
-                  <span className="font-sans text-sm">{event.date}</span>
+                  <ScratchReveal text={event.date} />
                 </div>
                 <div className="flex items-center justify-center gap-2">
                   <Clock className="w-4 h-4 text-primary transition-transform duration-300 group-hover:scale-110" style={{ transitionDelay: "100ms" }} />
