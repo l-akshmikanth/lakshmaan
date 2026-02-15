@@ -16,13 +16,25 @@ const HeartbeatButton = () => {
   const { t, language } = useLanguage();
 
   const vibrate = (pattern: number[]) => {
-    if ("vibrate" in navigator) {
-      navigator.vibrate(pattern);
+    try {
+      if (typeof navigator !== "undefined" && navigator.vibrate) {
+        // Attempt to vibrate
+        const result = navigator.vibrate(pattern);
+        if (!result) {
+          console.log("Vibration failed or was suppressed by the browser/system.");
+        }
+      }
+    } catch (e) {
+      console.error("Vibration API error:", e);
     }
   };
 
   const handleClick = () => {
     if (isBeating) return;
+
+    // Trigger vibration immediately on click (user gesture)
+    // Heartbeat pattern: lub-dub repeated twice
+    vibrate([200, 70, 150, 300, 200, 70, 150]);
 
     setIsBeating(true);
     setShowNameMerge(true);
@@ -52,12 +64,6 @@ const HeartbeatButton = () => {
     if (wasPlaying) {
       pause();
     }
-
-    // Heartbeat pattern: lub-dub repeated twice
-    // First cycle: LUB (200ms) - pause (70ms) - DUB (150ms)
-    // Short pause between cycles: 300ms
-    // Second cycle: LUB (200ms) - pause (70ms) - DUB (150ms)
-    vibrate([200, 70, 150, 300, 200, 70, 150]);
 
     // Resume music after heartbeat sequence (2 lub-dubs)
     setTimeout(() => {

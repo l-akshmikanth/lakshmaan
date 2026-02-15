@@ -38,6 +38,11 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Generate per-route OG meta tags
+        run: node scripts/generate-og-routes.cjs
+        env:
+          VITE_SITE_URL: https://l-akshmikanth.github.io/lakshmaan
+
       - name: Copy index.html to 404.html for SPA routing
         run: cp dist/index.html dist/404.html
 
