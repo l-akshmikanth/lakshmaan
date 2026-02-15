@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Single-page bilingual (English/Kannada) wedding invitation website for **Lakshmikanth & Maanya**. Built with **Vite + React 18 + TypeScript + Tailwind CSS + shadcn/ui**. No backend — purely static, deployed via Lovable.
+Single-page bilingual (English/Kannada) wedding invitation website for **Lakshmikanth & Maanya**. Built with **Vite + React 18 + TypeScript + Tailwind CSS + shadcn/ui**. No backend — purely static.
 
 ## Architecture
 

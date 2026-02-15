@@ -30,6 +30,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Update OG meta tags with absolute URLs
+        run: node scripts/update-og-urls.cjs
+        env:
+          VITE_SITE_URL: https://l-akshmikanth.github.io/lakshmaan
+
       - name: Build
         run: npm run build
 

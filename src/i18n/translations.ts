@@ -6,6 +6,13 @@ export interface TranslationStrings {
   "curtain.names": string;
   "curtain.aria": string;
 
+  // Intro
+  "intro.step1": string;
+  "intro.step2": string;
+  "intro.step3": string;
+  "intro.step4": string;
+  "intro.subtitle": string;
+
   // Nav
   "nav.home": string;
   "nav.family": string;
@@ -84,6 +91,9 @@ export interface TranslationStrings {
   // Music
   "music.muteAria": string;
   "music.playAria": string;
+
+  // Heartbeat
+  "heartbeat.aria": string;
 }
 
 export const translations: Record<Language, TranslationStrings> = {
@@ -92,6 +102,13 @@ export const translations: Record<Language, TranslationStrings> = {
     "curtain.pullRibbon": "ರಿಬ್ಬನ್ ಎಳೆಯಿರಿ",
     "curtain.names": "ಲಕ್ಷ್ಮೀಕಾಂತ್ & ಮಾನ್ಯ",
     "curtain.aria": "ಮದುವೆ ಆಹ್ವಾನ ಪರದೆ",
+
+    // Intro
+    "intro.step1": "LakshMaan",
+    "intro.step2": "Lakshmi Maanya",
+    "intro.step3": "Lakshmikan & Maanya",
+    "intro.step4": "Lakshmikanth & Maanya",
+    "intro.subtitle": "Laksh + Maan",
 
     // Nav
     "nav.home": "ಮುಖಪುಟ",
@@ -171,6 +188,9 @@ export const translations: Record<Language, TranslationStrings> = {
     // Music
     "music.muteAria": "ಸಂಗೀತ ನಿಲ್ಲಿಸಿ",
     "music.playAria": "ಸಂಗೀತ ಪ್ಲೇ ಮಾಡಿ",
+
+    // Heartbeat
+    "heartbeat.aria": "ಹೃದಯ ಬಡಿತ",
   },
 
   en: {
@@ -178,6 +198,13 @@ export const translations: Record<Language, TranslationStrings> = {
     "curtain.pullRibbon": "Pull the ribbon",
     "curtain.names": "Lakshmikanth & Maanya",
     "curtain.aria": "Wedding invitation curtain",
+
+    // Intro
+    "intro.step1": "LakshMaan",
+    "intro.step2": "Lakshmi Maanya",
+    "intro.step3": "Lakshmikan & Maanya",
+    "intro.step4": "Lakshmikanth & Maanya",
+    "intro.subtitle": "Laksh + Maan",
 
     // Nav
     "nav.home": "Home",
@@ -240,7 +267,7 @@ export const translations: Record<Language, TranslationStrings> = {
     "venue.subtitle": "Find your way",
     "venue.heading": "Venue & Directions",
     "venue.name": "Surabhi Kalyana Mantapa",
-    "venue.location": "Mysuru, Karnataka",
+    "venue.location": "Mandya, Karnataka",
     "venue.getDirections": "Get Directions",
     "venue.mapTitle": "Surabhi Kalyana Mantapa location",
 
@@ -257,5 +284,8 @@ export const translations: Record<Language, TranslationStrings> = {
     // Music
     "music.muteAria": "Mute music",
     "music.playAria": "Play music",
+
+    // Heartbeat
+    "heartbeat.aria": "Feel the heartbeat",
   },
 };

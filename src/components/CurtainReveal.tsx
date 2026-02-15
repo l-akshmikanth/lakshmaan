@@ -1,68 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import LanguageToggle from "./LanguageToggle";
-
-// Import all assets that need preloading
-import heroPhoto from "@/assets/hero-couple.jpg";
-import engagement1 from "@/assets/engagement-1.jpg";
-import engagement2 from "@/assets/engagement-2.jpg";
-import engagement3 from "@/assets/engagement-3.jpg";
-import engagement4 from "@/assets/engagement-4.jpg";
-import engagement5 from "@/assets/engagement-5.jpg";
-import engagement6 from "@/assets/engagement-6.jpg";
-import weddingMusic from "@/assets/wedding-music.mp3";
-
-const PRELOAD_IMAGES = [heroPhoto, engagement1, engagement2, engagement3, engagement4, engagement5, engagement6];
-const SAFETY_TIMEOUT_MS = 4000;
 
 const CurtainReveal = ({
   onRevealStart,
   onRevealComplete,
+  loaded,
 }: {
   onRevealStart: () => void;
   onRevealComplete: () => void;
+  loaded: boolean;
 }) => {
   const [isOpening, setIsOpening] = useState(false);
   const [fading, setFading] = useState(false);
-  const [loaded, setLoaded] = useState(false);
   const { t, perspective } = useLanguage();
-
-  // Preload all images and audio before enabling the ribbon
-  useEffect(() => {
-    let cancelled = false;
-
-    const imagePromises = PRELOAD_IMAGES.map(
-      (src) =>
-        new Promise<void>((resolve) => {
-          const img = new Image();
-          img.onload = () => resolve();
-          img.onerror = () => resolve(); // resolve even on error so we don't block
-          img.src = src;
-        })
-    );
-
-    const audioPromise = new Promise<void>((resolve) => {
-      const audio = new Audio();
-      audio.preload = "auto";
-      audio.oncanplaythrough = () => resolve();
-      audio.onerror = () => resolve();
-      audio.src = weddingMusic;
-    });
-
-    // Safety timeout — force-enable after 4s
-    const safetyTimer = setTimeout(() => {
-      if (!cancelled) setLoaded(true);
-    }, SAFETY_TIMEOUT_MS);
-
-    Promise.all([...imagePromises, audioPromise]).then(() => {
-      if (!cancelled) setLoaded(true);
-    });
-
-    return () => {
-      cancelled = true;
-      clearTimeout(safetyTimer);
-    };
-  }, []);
 
   const handleOpen = () => {
     if (isOpening) return;
@@ -261,7 +212,7 @@ const CurtainReveal = ({
       </div>
 
       {/* Red ribbon with bow — click target */}
-      {!isOpening && (
+      {!isOpening && loaded && (
         <div
           className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 group transition-opacity duration-500 ${
             loaded ? "cursor-pointer opacity-100" : "pointer-events-none opacity-40"
@@ -330,7 +281,7 @@ const CurtainReveal = ({
             className="absolute top-44 left-1/2 -translate-x-1/2 whitespace-nowrap font-serif text-sm tracking-[0.2em] uppercase animate-pulse-glow"
             style={{ color: `hsl(43 60% 70%)` }}
           >
-            {loaded ? t("curtain.pullRibbon") : "Loading..."}
+            {t("curtain.pullRibbon")}
           </p>
           <p
             className="absolute top-52 left-1/2 -translate-x-1/2 whitespace-nowrap font-serif text-xs italic"

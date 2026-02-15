@@ -1,46 +1,10 @@
-import { useState, useRef, useEffect } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import weddingMusic from "@/assets/wedding-music.mp3";
+import { useMusic } from "@/hooks/use-music";
 
-const MusicPlayer = ({ revealed = false }: { revealed?: boolean }) => {
-  const [playing, setPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+const MusicPlayer = () => {
+  const { playing, toggle } = useMusic();
   const { t } = useLanguage();
-
-  // Pre-create the audio element on mount so the mp3 starts downloading
-  useEffect(() => {
-    const audio = new Audio(weddingMusic);
-    audio.loop = true;
-    audio.volume = 0.3;
-    audio.preload = "auto";
-    audioRef.current = audio;
-
-    return () => {
-      audio.pause();
-      audio.src = "";
-    };
-  }, []);
-
-  // Play once the curtain is opened (user has made a gesture)
-  useEffect(() => {
-    if (revealed && audioRef.current) {
-      audioRef.current.play()
-        .then(() => setPlaying(true))
-        .catch(() => setPlaying(false));
-    }
-  }, [revealed]);
-
-  const toggle = () => {
-    if (!audioRef.current) return;
-
-    if (playing) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play().catch(() => {});
-    }
-    setPlaying(!playing);
-  };
 
   return (
     <button
