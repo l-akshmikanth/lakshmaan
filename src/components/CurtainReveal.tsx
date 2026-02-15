@@ -1,12 +1,19 @@
 import { useState } from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
+import LanguageToggle from "./LanguageToggle";
 
 const CurtainReveal = ({ onOpen }: { onOpen: () => void }) => {
   const [isOpening, setIsOpening] = useState(false);
+  const [fading, setFading] = useState(false);
+  const { t } = useLanguage();
 
   const handleOpen = () => {
     if (isOpening) return;
     setIsOpening(true);
-    setTimeout(onOpen, 1400);
+    // Phase 1: Curtains slide open (1300ms)
+    // Phase 2: Entire overlay fades out (900ms)
+    setTimeout(() => setFading(true), 1300);
+    setTimeout(onOpen, 2200);
   };
 
   // Generate fabric fold strips for realistic draping
@@ -59,7 +66,12 @@ const CurtainReveal = ({ onOpen }: { onOpen: () => void }) => {
     ));
 
   return (
-    <div className="fixed inset-0 z-50" aria-label="Wedding invitation curtain">
+    <div className={`fixed inset-0 z-50 ${fading ? "curtain-fade-out" : ""}`} aria-label={t("curtain.aria")}>
+      {/* Language toggle */}
+      <div className="absolute top-6 right-6 z-40">
+        <LanguageToggle />
+      </div>
+
       {/* Dark background behind curtains */}
       <div
         className="absolute inset-0"
@@ -196,7 +208,7 @@ const CurtainReveal = ({ onOpen }: { onOpen: () => void }) => {
           role="button"
           tabIndex={0}
           onKeyDown={(e) => e.key === "Enter" && handleOpen()}
-          aria-label="Pull ribbon to open invitation"
+          aria-label={t("curtain.pullRibbon")}
         >
           {/* Ribbon tails */}
           <div className="absolute top-8 left-1/2 -translate-x-1/2 flex gap-1">
@@ -256,13 +268,13 @@ const CurtainReveal = ({ onOpen }: { onOpen: () => void }) => {
             className="absolute top-44 left-1/2 -translate-x-1/2 whitespace-nowrap font-serif text-sm tracking-[0.2em] uppercase animate-pulse-glow"
             style={{ color: `hsl(43 60% 70%)` }}
           >
-            Pull the ribbon
+            {t("curtain.pullRibbon")}
           </p>
           <p
             className="absolute top-52 left-1/2 -translate-x-1/2 whitespace-nowrap font-serif text-xs italic"
             style={{ color: `hsl(43 60% 70% / 0.5)` }}
           >
-            Lakshmikanth & Maanya
+            {t("curtain.names")}
           </p>
         </div>
       )}

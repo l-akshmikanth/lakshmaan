@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Noto+Serif+Kannada:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -56,8 +56,16 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Noto Serif Kannada', sans-serif;
   }
+}
+
+/* Kannada script descenders / ottaksharagalu need extra vertical space */
+:lang(kn),
+[lang="kn"],
+.kn-text {
+  line-height: 1.8;
+  padding-bottom: 0.15em;
 }
 
 /* ======================== */
@@ -191,6 +199,12 @@
   100% { opacity: 0; transform: translateY(-80px) scale(0.5); }
 }
 
+/* Curtain fade out */
+@keyframes curtain-fade-out {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 /* ======================== */
 /* ANIMATION UTILITIES      */
 /* ======================== */
@@ -206,6 +220,11 @@
 
 .curtain-open-right {
   animation: curtain-open-right 1.3s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.curtain-fade-out {
+  animation: curtain-fade-out 900ms ease-in-out forwards;
+  pointer-events: none;
 }
 
 .animate-fade-up {
@@ -335,6 +354,10 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  padding-bottom: 0.35em;
+  line-height: 1.5;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 /* Gold shimmer text */
@@ -352,6 +375,10 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: shimmer 3s linear infinite;
+  padding-bottom: 0.35em;
+  line-height: 1.5;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 /* Curtain texture */

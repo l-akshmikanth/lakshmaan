@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface ScratchRevealProps {
   text: string;
@@ -6,10 +7,11 @@ interface ScratchRevealProps {
   height?: number;
 }
 
-const ScratchReveal = ({ text, width = 220, height = 32 }: ScratchRevealProps) => {
+const ScratchReveal = ({ text, width = 260, height = 36 }: ScratchRevealProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [revealed, setRevealed] = useState(false);
   const [isScratching, setIsScratching] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -37,7 +39,14 @@ const ScratchReveal = ({ text, width = 220, height = 32 }: ScratchRevealProps) =
     }
   }, [width, height, revealed]);
 
-  const getPos = (e: React.MouseEvent | React.TouchEvent) => {
+  // Auto-reveal fallback after 5 seconds
+  useEffect(() => {
+    if (revealed) return;
+    const timer = setTimeout(() => setRevealed(true), 5000);
+    return () => clearTimeout(timer);
+  }, [revealed]);
+
+  const getPos = useCallback((e: React.MouseEvent | React.TouchEvent) => {
     const canvas = canvasRef.current;
     if (!canvas) return { x: 0, y: 0 };
     const rect = canvas.getBoundingClientRect();
@@ -47,19 +56,18 @@ const ScratchReveal = ({ text, width = 220, height = 32 }: ScratchRevealProps) =
       x: (clientX - rect.left) * (canvas.width / rect.width),
       y: (clientY - rect.top) * (canvas.height / rect.height),
     };
-  };
+  }, []);
 
-  const scratch = useCallback(
-    (e: React.MouseEvent | React.TouchEvent) => {
-      if (!isScratching || revealed) return;
+  const doScratch = useCallback(
+    (x: number, y: number) => {
+      if (revealed) return;
       const canvas = canvasRef.current;
       const ctx = canvas?.getContext("2d");
       if (!canvas || !ctx) return;
 
-      const { x, y } = getPos(e);
       ctx.globalCompositeOperation = "destination-out";
       ctx.beginPath();
-      ctx.arc(x, y, 14, 0, Math.PI * 2);
+      ctx.arc(x, y, 18, 0, Math.PI * 2);
       ctx.fill();
 
       // Check scratch percentage
@@ -69,21 +77,39 @@ const ScratchReveal = ({ text, width = 220, height = 32 }: ScratchRevealProps) =
         if (imageData.data[i] === 0) cleared++;
       }
       const pct = cleared / (imageData.data.length / 4);
-      if (pct > 0.45) {
+      if (pct > 0.30) {
         setRevealed(true);
       }
     },
-    [isScratching, revealed]
+    [revealed]
   );
 
-  const startScratch = () => setIsScratching(true);
+  const scratch = useCallback(
+    (e: React.MouseEvent | React.TouchEvent) => {
+      if (!isScratching || revealed) return;
+      const { x, y } = getPos(e);
+      doScratch(x, y);
+    },
+    [isScratching, revealed, getPos, doScratch]
+  );
+
+  const startScratch = useCallback(
+    (e: React.MouseEvent | React.TouchEvent) => {
+      setIsScratching(true);
+      // Immediate scratch on tap/click
+      const { x, y } = getPos(e);
+      doScratch(x, y);
+    },
+    [getPos, doScratch]
+  );
+
   const stopScratch = () => setIsScratching(false);
 
   return (
     <div className="relative inline-flex flex-col items-center">
       <div className="relative" style={{ width, height }}>
         <span
-          className={`absolute inset-0 flex items-center justify-center font-sans text-sm text-muted-foreground transition-opacity duration-500 ${
+          className={`absolute inset-0 flex items-center justify-center font-sans text-sm font-semibold text-foreground transition-opacity duration-500 ${
             revealed ? "opacity-100" : "opacity-0"
           }`}
         >
@@ -108,7 +134,7 @@ const ScratchReveal = ({ text, width = 220, height = 32 }: ScratchRevealProps) =
       </div>
       {!revealed && (
         <span className="text-[10px] text-primary/50 mt-1 tracking-wider uppercase animate-pulse">
-          Scratch to reveal
+          {t("scratch.instruction")}
         </span>
       )}
     </div>

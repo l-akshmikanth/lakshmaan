@@ -1,6 +1,9 @@
 import { ScrollAnimate } from "./ScrollAnimate";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
+
   return (
     <footer className="py-20 px-6 text-center">
       <ScrollAnimate>
@@ -27,11 +30,11 @@ const Footer = () => {
         </div>
 
         <p className="font-sans text-sm text-muted-foreground mb-6 max-w-md mx-auto leading-relaxed">
-          We are blessed to have you in our lives and would be honored by your presence on our special day.
+          {t("footer.message")}
         </p>
 
         <h3 className="font-serif text-2xl md:text-3xl gold-shimmer-text font-semibold">
-          Lakshmikanth & Maanya
+          {t("footer.names")}
         </h3>
 
         <div className="mt-8 flex justify-center">
@@ -39,7 +42,7 @@ const Footer = () => {
         </div>
 
         <p className="mt-6 font-sans text-xs text-muted-foreground/60">
-          Made with love 💛
+          {t("footer.madeWithLove")}
         </p>
       </ScrollAnimate>
     </footer>

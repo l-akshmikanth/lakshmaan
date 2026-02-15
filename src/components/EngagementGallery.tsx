@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ScrollAnimate } from "./ScrollAnimate";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 import engagement1 from "@/assets/engagement-1.jpg";
 import engagement2 from "@/assets/engagement-2.jpg";
@@ -20,6 +21,7 @@ const engagementPhotos = [
 
 const EngagementGallery = () => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   const openLightbox = (index: number) => setLightboxIndex(index);
   const closeLightbox = () => setLightboxIndex(null);
@@ -39,13 +41,13 @@ const EngagementGallery = () => {
     <section className="py-20 px-6" id="gallery">
       <ScrollAnimate className="text-center mb-14">
         <p className="font-sans text-xs tracking-[0.3em] uppercase text-muted-foreground mb-3">
-          A beautiful beginning
+          {t("gallery.subtitle")}
         </p>
         <h2 className="font-serif text-3xl md:text-4xl gold-text font-semibold">
-          Our Engagement
+          {t("gallery.heading")}
         </h2>
         <p className="mt-3 font-sans text-sm text-muted-foreground">
-          October 13, 2025
+          {t("gallery.date")}
         </p>
       </ScrollAnimate>
 
@@ -80,7 +82,7 @@ const EngagementGallery = () => {
           <button
             onClick={(e) => { e.stopPropagation(); closeLightbox(); }}
             className="absolute top-4 right-4 text-white/80 hover:text-white z-10 transition-transform hover:scale-110"
-            aria-label="Close lightbox"
+            aria-label={t("gallery.closeAria")}
           >
             <X className="w-8 h-8" />
           </button>
@@ -88,7 +90,7 @@ const EngagementGallery = () => {
           <button
             onClick={(e) => { e.stopPropagation(); goPrev(); }}
             className="absolute left-4 text-white/80 hover:text-white z-10 transition-transform hover:scale-110"
-            aria-label="Previous photo"
+            aria-label={t("gallery.prevAria")}
           >
             <ChevronLeft className="w-10 h-10" />
           </button>
@@ -103,7 +105,7 @@ const EngagementGallery = () => {
           <button
             onClick={(e) => { e.stopPropagation(); goNext(); }}
             className="absolute right-4 text-white/80 hover:text-white z-10 transition-transform hover:scale-110"
-            aria-label="Next photo"
+            aria-label={t("gallery.nextAria")}
           >
             <ChevronRight className="w-10 h-10" />
           </button>

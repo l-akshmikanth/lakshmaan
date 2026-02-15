@@ -1,26 +1,30 @@
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
+import LanguageToggle from "./LanguageToggle";
 
-const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Family", href: "#family" },
-  { label: "Events", href: "#events" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Venue", href: "#venue" },
-];
+const NAV_SECTIONS = ["home", "family", "events", "gallery", "venue"] as const;
 
 const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { label: t("nav.home"), href: "#home" },
+    { label: t("nav.family"), href: "#family" },
+    { label: t("nav.events"), href: "#events" },
+    { label: t("nav.gallery"), href: "#gallery" },
+    { label: t("nav.venue"), href: "#venue" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 60);
 
-      const sections = navLinks.map((l) => l.href.slice(1));
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
+      for (let i = NAV_SECTIONS.length - 1; i >= 0; i--) {
+        const el = document.getElementById(NAV_SECTIONS[i]);
         if (el && el.getBoundingClientRect().top <= 120) {
-          setActiveSection(sections[i]);
+          setActiveSection(NAV_SECTIONS[i]);
           break;
         }
       }
@@ -52,6 +56,7 @@ const NavBar = () => {
             {link.label}
           </a>
         ))}
+        <LanguageToggle />
       </div>
     </nav>
   );

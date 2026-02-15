@@ -1,7 +1,10 @@
 import { ScrollAnimate } from "./ScrollAnimate";
 import KolamPattern from "./KolamPattern";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const FamiliesSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="py-20 px-6 relative overflow-hidden" id="family">
       {/* Kolam watermark */}
@@ -9,7 +12,7 @@ const FamiliesSection = () => {
 
       <ScrollAnimate className="max-w-2xl mx-auto text-center relative z-10">
         <p className="font-sans text-sm tracking-[0.3em] uppercase text-muted-foreground mb-10">
-          With the blessings of our families
+          {t("families.blessing")}
         </p>
       </ScrollAnimate>
 
@@ -17,30 +20,30 @@ const FamiliesSection = () => {
         {/* Groom's family */}
         <ScrollAnimate variant="left" delay={100} className="text-center">
           <p className="font-sans text-xs tracking-[0.25em] uppercase text-muted-foreground mb-3">
-            Groom's Parents
+            {t("families.groomParents")}
           </p>
           <p className="font-serif text-2xl md:text-3xl text-foreground">
-            Sheelavathi
+            {t("families.groomMother")}
           </p>
-          <p className="font-serif text-lg text-primary/60 my-1">&</p>
+          <p className="font-serif text-lg text-primary/60 my-1">{t("families.and")}</p>
           <p className="font-serif text-2xl md:text-3xl text-foreground">
-            Murthy
+            {t("families.groomFather")}
           </p>
         </ScrollAnimate>
 
         {/* Bride's family */}
         <ScrollAnimate variant="right" delay={200} className="text-center">
           <p className="font-sans text-xs tracking-[0.25em] uppercase text-muted-foreground mb-3">
-            Bride's Parents
+            {t("families.brideParents")}
           </p>
           <p className="font-serif text-2xl md:text-3xl text-foreground">
-            Chandrakala
+            {t("families.brideMother")}
           </p>
-          <p className="font-serif text-lg text-primary/60 my-1">&</p>
+          <p className="font-serif text-lg text-primary/60 my-1">{t("families.and")}</p>
           <p className="font-serif text-2xl md:text-3xl text-foreground/70 italic">
-            Late Venkatesh
+            {t("families.brideFather")}
           </p>
-          <p className="text-xs text-muted-foreground mt-1 animate-pulse-glow">In loving memory</p>
+          <p className="text-xs text-muted-foreground mt-1 animate-pulse-glow">{t("families.inMemory")}</p>
         </ScrollAnimate>
       </div>
 

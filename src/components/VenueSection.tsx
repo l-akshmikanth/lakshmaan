@@ -1,15 +1,18 @@
 import { ScrollAnimate } from "./ScrollAnimate";
 import { MapPin, Navigation } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const VenueSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="py-20 px-6" id="venue">
       <ScrollAnimate className="text-center mb-14">
         <p className="font-sans text-xs tracking-[0.3em] uppercase text-muted-foreground mb-3">
-          Find your way
+          {t("venue.subtitle")}
         </p>
         <h2 className="font-serif text-3xl md:text-4xl gold-text font-semibold">
-          Venue & Directions
+          {t("venue.heading")}
         </h2>
       </ScrollAnimate>
 
@@ -25,7 +28,7 @@ const VenueSection = () => {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Surabhi Kalyana Mantapa location"
+              title={t("venue.mapTitle")}
             />
           </div>
 
@@ -34,11 +37,11 @@ const VenueSection = () => {
             <div className="flex items-center justify-center gap-2 mb-3">
               <MapPin className="w-5 h-5 text-primary" />
               <h3 className="font-serif text-xl md:text-2xl font-semibold text-foreground">
-                Surabhi Kalyana Mantapa
+                {t("venue.name")}
               </h3>
             </div>
             <p className="text-sm text-muted-foreground mb-6">
-              Mysuru, Karnataka
+              {t("venue.location")}
             </p>
             <a
               href="https://www.google.com/maps/place/Surabhi+Kalyana+Mantapa/@12.5236953,76.8703581,17z"
@@ -47,7 +50,7 @@ const VenueSection = () => {
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-sans text-sm font-medium hover:bg-primary/90 transition-all duration-300 shadow-md hover:shadow-lg btn-ripple group"
             >
               <Navigation className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              Get Directions
+              {t("venue.getDirections")}
             </a>
           </div>
         </div>

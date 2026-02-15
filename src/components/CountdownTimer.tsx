@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { ScrollAnimate } from "./ScrollAnimate";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const MUHURTHAM_DATE = new Date("2026-03-08T10:30:00+05:30").getTime();
 
 const CountdownTimer = () => {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
+  const { t } = useLanguage();
 
   function getTimeLeft() {
     const diff = MUHURTHAM_DATE - Date.now();
@@ -23,20 +25,20 @@ const CountdownTimer = () => {
   }, []);
 
   const units = [
-    { label: "Days", value: timeLeft.days },
-    { label: "Hours", value: timeLeft.hours },
-    { label: "Minutes", value: timeLeft.minutes },
-    { label: "Seconds", value: timeLeft.seconds },
+    { label: t("countdown.days"), value: timeLeft.days },
+    { label: t("countdown.hours"), value: timeLeft.hours },
+    { label: t("countdown.minutes"), value: timeLeft.minutes },
+    { label: t("countdown.seconds"), value: timeLeft.seconds },
   ];
 
   return (
     <section className="py-20 px-6">
       <ScrollAnimate className="text-center mb-12">
         <p className="font-sans text-xs tracking-[0.3em] uppercase text-muted-foreground mb-3">
-          Counting down to
+          {t("countdown.subtitle")}
         </p>
         <h2 className="font-serif text-3xl md:text-4xl gold-shimmer-text font-semibold">
-          Muhurtha
+          {t("countdown.heading")}
         </h2>
       </ScrollAnimate>
 

@@ -2,35 +2,38 @@ import { ScrollAnimate } from "./ScrollAnimate";
 import { CalendarDays, Clock, MapPin } from "lucide-react";
 import KolamPattern from "./KolamPattern";
 import ScratchReveal from "./ScratchReveal";
-
-const events = [
-  {
-    title: "Reception",
-    date: "Saturday, March 7, 2026",
-    time: "7:00 PM onwards",
-    venue: "Surabhi Kalyana Mantapa",
-    variant: "left" as const,
-  },
-  {
-    title: "Muhurtha",
-    date: "Sunday, March 8, 2026",
-    time: "10:30 AM onwards",
-    venue: "Surabhi Kalyana Mantapa",
-    variant: "right" as const,
-  },
-];
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const EventsSection = () => {
+  const { t } = useLanguage();
+
+  const events = [
+    {
+      title: t("events.receptionTitle"),
+      date: t("events.receptionDate"),
+      time: t("events.receptionTime"),
+      venue: t("events.venue"),
+      variant: "left" as const,
+    },
+    {
+      title: t("events.muhurthaTitle"),
+      date: t("events.muhurthaDate"),
+      time: t("events.muhurthaTime"),
+      venue: t("events.venue"),
+      variant: "right" as const,
+    },
+  ];
+
   return (
     <section className="py-20 px-6 relative overflow-hidden" id="events">
       <KolamPattern className="absolute -right-20 top-10 w-[200px] h-[200px] opacity-40" />
 
       <ScrollAnimate className="text-center mb-14 relative z-10">
         <p className="font-sans text-xs tracking-[0.3em] uppercase text-muted-foreground mb-3">
-          Join us for
+          {t("events.subtitle")}
         </p>
         <h2 className="font-serif text-3xl md:text-4xl gold-text font-semibold">
-          Wedding Events
+          {t("events.heading")}
         </h2>
       </ScrollAnimate>
 

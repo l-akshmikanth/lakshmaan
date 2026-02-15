@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { ScrollAnimate } from "./ScrollAnimate";
+import { useLanguage } from "@/i18n/LanguageContext";
 import heroPhoto from "@/assets/hero-couple.jpg";
 
 const HeroSection = () => {
   const [showName, setShowName] = useState(false);
   const [showDate, setShowDate] = useState(false);
   const [showDivider, setShowDivider] = useState(false);
+  const { t, language } = useLanguage();
 
   useEffect(() => {
     const t1 = setTimeout(() => setShowName(true), 300);
@@ -14,8 +16,8 @@ const HeroSection = () => {
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, []);
 
-  const groomName = "Lakshmikanth";
-  const brideName = "Maanya";
+  const groomName = t("hero.groomName");
+  const brideName = t("hero.brideName");
 
   return (
     <section id="home" className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 overflow-hidden">
@@ -57,41 +59,53 @@ const HeroSection = () => {
         <div className="absolute -inset-6 rounded-full border border-primary/10 animate-ring-pulse" />
 
         <div className="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 border-primary/50 overflow-hidden shadow-lg shadow-primary/20 relative z-10">
-          <img src={heroPhoto} alt="Lakshmikanth & Maanya" className="w-full h-full object-cover" />
+          <img src={heroPhoto} alt={t("hero.photoAlt")} className="w-full h-full object-cover" />
         </div>
       </div>
 
       {/* Names with shimmer */}
       {showName && (
         <div className="text-center">
-          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-wide">
-            {groomName.split("").map((char, i) => (
-              <span
-                key={`g-${i}`}
-                className="inline-block gold-text animate-fade-in"
-                style={{ animationDelay: `${i * 60}ms` }}
-              >
-                {char}
-              </span>
-            ))}
-          </h1>
+          {language === "kn" ? (
+            <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-wide gold-text animate-fade-in">
+              {groomName}
+            </h1>
+          ) : (
+            <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-wide">
+              {groomName.split("").map((char, i) => (
+                <span
+                  key={`g-${i}`}
+                  className="inline-block gold-text animate-fade-in"
+                  style={{ animationDelay: `${i * 60}ms` }}
+                >
+                  {char}
+                </span>
+              ))}
+            </h1>
+          )}
           <p
             className="font-serif text-2xl md:text-3xl text-primary/60 my-3 animate-fade-in italic animate-float"
             style={{ animationDelay: "0.8s" }}
           >
-            &
+            {t("hero.and")}
           </p>
-          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-wide">
-            {brideName.split("").map((char, i) => (
-              <span
-                key={`b-${i}`}
-                className="inline-block gold-text animate-fade-in"
-                style={{ animationDelay: `${800 + i * 60}ms` }}
-              >
-                {char}
-              </span>
-            ))}
-          </h1>
+          {language === "kn" ? (
+            <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-wide gold-text animate-fade-in" style={{ animationDelay: "0.8s" }}>
+              {brideName}
+            </h1>
+          ) : (
+            <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-wide">
+              {brideName.split("").map((char, i) => (
+                <span
+                  key={`b-${i}`}
+                  className="inline-block gold-text animate-fade-in"
+                  style={{ animationDelay: `${800 + i * 60}ms` }}
+                >
+                  {char}
+                </span>
+              ))}
+            </h1>
+          )}
         </div>
       )}
 
@@ -103,7 +117,7 @@ const HeroSection = () => {
       {/* Date */}
       {showDate && (
         <p className="mt-6 font-sans text-lg md:text-xl tracking-[0.2em] uppercase text-muted-foreground animate-fade-up">
-          March 2026
+          {t("hero.date")}
         </p>
       )}
 

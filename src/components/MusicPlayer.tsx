@@ -1,18 +1,29 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Volume2, VolumeX } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
+import weddingMusic from "@/assets/wedding-music.mp3";
 
 const MusicPlayer = () => {
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const { t } = useLanguage();
+
+  // Auto-play on mount (works because the curtain interaction provides a user gesture)
+  useEffect(() => {
+    const audio = new Audio(weddingMusic);
+    audio.loop = true;
+    audio.volume = 0.3;
+    audioRef.current = audio;
+    audio.play().catch(() => setPlaying(false));
+
+    return () => {
+      audio.pause();
+      audio.src = "";
+    };
+  }, []);
 
   const toggle = () => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio();
-      // Users should provide their own music file at src/assets/wedding-music.mp3
-      // For now we use a silent placeholder to avoid errors
-      audioRef.current.loop = true;
-      audioRef.current.volume = 0.3;
-    }
+    if (!audioRef.current) return;
 
     if (playing) {
       audioRef.current.pause();
@@ -26,7 +37,7 @@ const MusicPlayer = () => {
     <button
       onClick={toggle}
       className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full glass flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 group"
-      aria-label={playing ? "Mute music" : "Play music"}
+      aria-label={playing ? t("music.muteAria") : t("music.playAria")}
     >
       {playing ? (
         <Volume2 className="w-5 h-5 text-primary animate-pulse" />

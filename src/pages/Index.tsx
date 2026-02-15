@@ -14,11 +14,21 @@ import MusicPlayer from "@/components/MusicPlayer";
 
 const Index = () => {
   const [curtainOpen, setCurtainOpen] = useState(false);
+  const [curtainDone, setCurtainDone] = useState(false);
+
+  const handleCurtainOpen = () => {
+    // Content starts rendering underneath; curtain fades out on top
+    setCurtainOpen(true);
+    // Unmount the curtain overlay after the fade animation completes
+    setTimeout(() => setCurtainDone(true), 100);
+  };
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
-      {!curtainOpen && <CurtainReveal onOpen={() => setCurtainOpen(true)} />}
+      {/* Curtain overlay — stays mounted during fade-out, then unmounts */}
+      {!curtainDone && <CurtainReveal onOpen={handleCurtainOpen} />}
 
+      {/* Main content renders underneath the curtain during crossfade */}
       {curtainOpen && (
         <>
           <NavBar />
