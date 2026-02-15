@@ -60,17 +60,14 @@ const HeartbeatButton = () => {
     }, 3500);
 
     // Pause music
-    const wasPlaying = playing;
-    if (wasPlaying) {
-      pause();
-    }
+    // const wasPlaying = playing;
+    // if (wasPlaying) {
+    //   pause();
+    // }
 
-    // Resume music after heartbeat sequence (2 lub-dubs)
+    // Resume after heartbeat animation
     setTimeout(() => {
       setIsBeating(false);
-      if (wasPlaying) {
-        play();
-      }
     }, 2800); // Animation duration + small buffer
   };
 
