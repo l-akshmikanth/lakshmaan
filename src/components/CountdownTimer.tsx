@@ -33,7 +33,7 @@ const CountdownTimer = () => {
 
   return (
     <section className="py-20 px-6">
-      <ScrollAnimate className="text-center mb-12">
+      <ScrollAnimate className="text-center mb-12" variant="tilt">
         <p className="font-sans text-xs tracking-[0.3em] uppercase text-muted-foreground mb-3">
           {t("countdown.subtitle")}
         </p>
@@ -45,7 +45,7 @@ const CountdownTimer = () => {
       <div className="flex justify-center gap-3 md:gap-6 max-w-lg mx-auto">
         {units.map((unit, i) => (
           <ScrollAnimate key={unit.label} variant="scale" delay={i * 100}>
-            <div className="glass rounded-xl p-4 md:p-6 min-w-[70px] md:min-w-[90px] text-center shadow-lg animate-breathe animate-border-shimmer"
+            <div className="glass rounded-xl p-4 md:p-6 min-w-[70px] md:min-w-[90px] text-center shadow-lg animate-breathe animate-border-shimmer animate-glow-ring magnetic-hover"
                  style={{ animationDelay: `${i * 500}ms` }}>
               <span
                 className="block font-serif text-3xl md:text-5xl font-bold text-foreground tabular-nums"

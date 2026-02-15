@@ -1,19 +1,79 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import LanguageToggle from "./LanguageToggle";
 
-const CurtainReveal = ({ onOpen }: { onOpen: () => void }) => {
+// Import all assets that need preloading
+import heroPhoto from "@/assets/hero-couple.jpg";
+import engagement1 from "@/assets/engagement-1.jpg";
+import engagement2 from "@/assets/engagement-2.jpg";
+import engagement3 from "@/assets/engagement-3.jpg";
+import engagement4 from "@/assets/engagement-4.jpg";
+import engagement5 from "@/assets/engagement-5.jpg";
+import engagement6 from "@/assets/engagement-6.jpg";
+import weddingMusic from "@/assets/wedding-music.mp3";
+
+const PRELOAD_IMAGES = [heroPhoto, engagement1, engagement2, engagement3, engagement4, engagement5, engagement6];
+const SAFETY_TIMEOUT_MS = 4000;
+
+const CurtainReveal = ({
+  onRevealStart,
+  onRevealComplete,
+}: {
+  onRevealStart: () => void;
+  onRevealComplete: () => void;
+}) => {
   const [isOpening, setIsOpening] = useState(false);
   const [fading, setFading] = useState(false);
-  const { t } = useLanguage();
+  const [loaded, setLoaded] = useState(false);
+  const { t, perspective } = useLanguage();
+
+  // Preload all images and audio before enabling the ribbon
+  useEffect(() => {
+    let cancelled = false;
+
+    const imagePromises = PRELOAD_IMAGES.map(
+      (src) =>
+        new Promise<void>((resolve) => {
+          const img = new Image();
+          img.onload = () => resolve();
+          img.onerror = () => resolve(); // resolve even on error so we don't block
+          img.src = src;
+        })
+    );
+
+    const audioPromise = new Promise<void>((resolve) => {
+      const audio = new Audio();
+      audio.preload = "auto";
+      audio.oncanplaythrough = () => resolve();
+      audio.onerror = () => resolve();
+      audio.src = weddingMusic;
+    });
+
+    // Safety timeout — force-enable after 4s
+    const safetyTimer = setTimeout(() => {
+      if (!cancelled) setLoaded(true);
+    }, SAFETY_TIMEOUT_MS);
+
+    Promise.all([...imagePromises, audioPromise]).then(() => {
+      if (!cancelled) setLoaded(true);
+    });
+
+    return () => {
+      cancelled = true;
+      clearTimeout(safetyTimer);
+    };
+  }, []);
 
   const handleOpen = () => {
     if (isOpening) return;
     setIsOpening(true);
+    // Immediately tell the parent to start revealing the page behind
+    onRevealStart();
     // Phase 1: Curtains slide open (1300ms)
     // Phase 2: Entire overlay fades out (900ms)
     setTimeout(() => setFading(true), 1300);
-    setTimeout(onOpen, 2200);
+    // After full animation, tell parent to unmount us
+    setTimeout(onRevealComplete, 2200);
   };
 
   // Generate fabric fold strips for realistic draping
@@ -72,17 +132,17 @@ const CurtainReveal = ({ onOpen }: { onOpen: () => void }) => {
         <LanguageToggle />
       </div>
 
-      {/* Dark background behind curtains */}
+      {/* Dark background behind curtains — fades out as curtains slide apart */}
       <div
-        className="absolute inset-0"
+        className={`absolute inset-0 ${isOpening ? "curtain-bg-fade" : ""}`}
         style={{
           background: `radial-gradient(ellipse at center, hsl(43 40% 20%) 0%, hsl(30 30% 10%) 100%)`,
         }}
       />
 
-      {/* Decorative curtain rod */}
+      {/* Decorative curtain rod — fades with background */}
       <div
-        className="absolute top-0 left-0 right-0 z-30 h-5"
+        className={`absolute top-0 left-0 right-0 z-30 h-5 ${isOpening ? "curtain-bg-fade" : ""}`}
         style={{
           background: `linear-gradient(180deg, 
             hsl(43 76% 58%) 0%, 
@@ -203,11 +263,13 @@ const CurtainReveal = ({ onOpen }: { onOpen: () => void }) => {
       {/* Red ribbon with bow — click target */}
       {!isOpening && (
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 cursor-pointer group"
-          onClick={handleOpen}
+          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 group transition-opacity duration-500 ${
+            loaded ? "cursor-pointer opacity-100" : "pointer-events-none opacity-40"
+          }`}
+          onClick={loaded ? handleOpen : undefined}
           role="button"
-          tabIndex={0}
-          onKeyDown={(e) => e.key === "Enter" && handleOpen()}
+          tabIndex={loaded ? 0 : -1}
+          onKeyDown={(e) => loaded && e.key === "Enter" && handleOpen()}
           aria-label={t("curtain.pullRibbon")}
         >
           {/* Ribbon tails */}
@@ -268,13 +330,15 @@ const CurtainReveal = ({ onOpen }: { onOpen: () => void }) => {
             className="absolute top-44 left-1/2 -translate-x-1/2 whitespace-nowrap font-serif text-sm tracking-[0.2em] uppercase animate-pulse-glow"
             style={{ color: `hsl(43 60% 70%)` }}
           >
-            {t("curtain.pullRibbon")}
+            {loaded ? t("curtain.pullRibbon") : "Loading..."}
           </p>
           <p
             className="absolute top-52 left-1/2 -translate-x-1/2 whitespace-nowrap font-serif text-xs italic"
             style={{ color: `hsl(43 60% 70% / 0.5)` }}
           >
-            {t("curtain.names")}
+            {perspective === "bride"
+              ? `${t("hero.brideName")} & ${t("hero.groomName")}`
+              : t("curtain.names")}
           </p>
         </div>
       )}

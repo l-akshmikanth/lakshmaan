@@ -55,9 +55,6 @@ export interface TranslationStrings {
   "events.muhurthaTime": string;
   "events.venue": string;
 
-  // Scratch
-  "scratch.instruction": string;
-
   // Gallery
   "gallery.subtitle": string;
   "gallery.heading": string;
@@ -78,6 +75,11 @@ export interface TranslationStrings {
   "footer.message": string;
   "footer.names": string;
   "footer.madeWithLove": string;
+
+  // Calendar Prompt
+  "calendarPrompt.title": string;
+  "calendarPrompt.message": string;
+  "calendarPrompt.close": string;
 
   // Music
   "music.muteAria": string;
@@ -140,9 +142,6 @@ export const translations: Record<Language, TranslationStrings> = {
     "events.muhurthaTime": "ಬೆಳಿಗ್ಗೆ ೧೦:೩೦ ರಿಂದ",
     "events.venue": "ಸುರಭಿ ಕಲ್ಯಾಣ ಮಂಟಪ",
 
-    // Scratch
-    "scratch.instruction": "ತಿಕ್ಕಿ ನೋಡಿ",
-
     // Gallery
     "gallery.subtitle": "ಸುಂದರ ಆರಂಭ",
     "gallery.heading": "ನಮ್ಮ ನಿಶ್ಚಿತಾರ್ಥ",
@@ -155,7 +154,7 @@ export const translations: Record<Language, TranslationStrings> = {
     "venue.subtitle": "ದಾರಿ ಹುಡುಕಿ",
     "venue.heading": "ಸ್ಥಳ ಮತ್ತು ಮಾರ್ಗದರ್ಶನ",
     "venue.name": "ಸುರಭಿ ಕಲ್ಯಾಣ ಮಂಟಪ",
-    "venue.location": "ಮೈಸೂರು, ಕರ್ನಾಟಕ",
+    "venue.location": "ಮಂಡ್ಯ, ಕರ್ನಾಟಕ",
     "venue.getDirections": "ದಿಕ್ಕುಗಳನ್ನು ಪಡೆಯಿರಿ",
     "venue.mapTitle": "ಸುರಭಿ ಕಲ್ಯಾಣ ಮಂಟಪ ಸ್ಥಳ",
 
@@ -163,6 +162,11 @@ export const translations: Record<Language, TranslationStrings> = {
     "footer.message": "ನಿಮ್ಮನ್ನು ನಮ್ಮ ಜೀವನದಲ್ಲಿ ಹೊಂದಿರುವುದು ನಮ್ಮ ಸೌಭಾಗ್ಯ. ನಮ್ಮ ವಿಶೇಷ ದಿನದಂದು ನಿಮ್ಮ ಉಪಸ್ಥಿತಿಯಿಂದ ನಮಗೆ ಸಂತೋಷವಾಗುತ್ತದೆ.",
     "footer.names": "ಲಕ್ಷ್ಮೀಕಾಂತ್ & ಮಾನ್ಯ",
     "footer.madeWithLove": "ಪ್ರೀತಿಯಿಂದ ❤️",
+
+    // Calendar Prompt
+    "calendarPrompt.title": "ನಮ್ಮ ವಿವಾಹದ ದಿನಾಂಕವನ್ನು ಕಾಯ್ದಿರಿಸಿ ✨",
+    "calendarPrompt.message": "ನಮ್ಮ ಮದುವೆಯ ಈ ಸುಂದರ ದಿನವನ್ನು ನಿಮ್ಮ ಕ್ಯಾಲೆಂಡರ್‌ನಲ್ಲಿ ಗುರುತಿಸಿ — ನಿಮ್ಮ ಉಪಸ್ಥಿತಿ ನಮಗೆ ಅತ್ಯಮೂಲ್ಯ.",
+    "calendarPrompt.close": "ನಾನು ಬರುತ್ತೇನೆ! 💛",
 
     // Music
     "music.muteAria": "ಸಂಗೀತ ನಿಲ್ಲಿಸಿ",
@@ -224,9 +228,6 @@ export const translations: Record<Language, TranslationStrings> = {
     "events.muhurthaTime": "10:30 AM onwards",
     "events.venue": "Surabhi Kalyana Mantapa",
 
-    // Scratch
-    "scratch.instruction": "Scratch to reveal",
-
     // Gallery
     "gallery.subtitle": "A beautiful beginning",
     "gallery.heading": "Our Engagement",
@@ -247,6 +248,11 @@ export const translations: Record<Language, TranslationStrings> = {
     "footer.message": "We are blessed to have you in our lives and would be honored by your presence on our special day.",
     "footer.names": "Lakshmikanth & Maanya",
     "footer.madeWithLove": "Made with love 💛",
+
+    // Calendar Prompt
+    "calendarPrompt.title": "Save Our Date ✨",
+    "calendarPrompt.message": "We'd love for you to mark this beautiful day in your calendar so you don't miss a moment of our celebration!",
+    "calendarPrompt.close": "I'll be there! 💛",
 
     // Music
     "music.muteAria": "Mute music",

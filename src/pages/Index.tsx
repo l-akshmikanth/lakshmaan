@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CurtainReveal from "@/components/CurtainReveal";
 import NavBar from "@/components/NavBar";
 import HeroSection from "@/components/HeroSection";
@@ -11,59 +11,76 @@ import EngagementGallery from "@/components/EngagementGallery";
 import VenueSection from "@/components/VenueSection";
 import Footer from "@/components/Footer";
 import MusicPlayer from "@/components/MusicPlayer";
+import FloatingPetals from "@/components/FloatingPetals";
+import CalendarPromptDialog from "@/components/CalendarPromptDialog";
 
 const Index = () => {
   const [curtainOpen, setCurtainOpen] = useState(false);
   const [curtainDone, setCurtainDone] = useState(false);
+  const footerRef = useRef<HTMLDivElement>(null);
 
-  const handleCurtainOpen = () => {
-    // Content starts rendering underneath; curtain fades out on top
+  // Fired immediately when user clicks the ribbon — starts revealing the page
+  const handleRevealStart = () => {
     setCurtainOpen(true);
-    // Unmount the curtain overlay after the fade animation completes
-    setTimeout(() => setCurtainDone(true), 100);
+  };
+
+  // Fired after the curtain slide + fade animation fully completes
+  const handleRevealComplete = () => {
+    setCurtainDone(true);
   };
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
-      {/* Curtain overlay — stays mounted during fade-out, then unmounts */}
-      {!curtainDone && <CurtainReveal onOpen={handleCurtainOpen} />}
-
-      {/* Main content renders underneath the curtain during crossfade */}
-      {curtainOpen && (
-        <>
-          <NavBar />
-          <main>
-            <div className="animate-cascade" style={{ animationDelay: "0s" }}>
-              <HeroSection />
-            </div>
-            <div className="animate-cascade" style={{ animationDelay: "0.15s" }}>
-              <SectionDivider />
-            </div>
-            <div className="animate-cascade" style={{ animationDelay: "0.3s" }}>
-              <FamiliesSection />
-            </div>
-            <div className="animate-cascade" style={{ animationDelay: "0.45s" }}>
-              <SectionDivider />
-            </div>
-            <div className="animate-cascade" style={{ animationDelay: "0.6s" }}>
-              <CountdownTimer />
-              <AddToCalendar />
-            </div>
-            <div className="animate-cascade" style={{ animationDelay: "0.75s" }}>
-              <SectionDivider />
-            </div>
-            <div className="animate-cascade" style={{ animationDelay: "0.9s" }}>
-              <EventsSection />
-            </div>
-            <SectionDivider />
-            <EngagementGallery />
-            <SectionDivider />
-            <VenueSection />
-            <Footer />
-          </main>
-          <MusicPlayer />
-        </>
+      {/* Curtain overlay — stays mounted during animation, then unmounts */}
+      {!curtainDone && (
+        <CurtainReveal
+          onRevealStart={handleRevealStart}
+          onRevealComplete={handleRevealComplete}
+        />
       )}
+
+      {/*
+        Main content is ALWAYS rendered (so images preload in the background).
+        It starts invisible and transitions to visible when the curtain opens.
+        Cascade animations are paused until curtainOpen is true.
+      */}
+      <div className={curtainOpen ? "main-content main-content--visible" : "main-content"}>
+        <NavBar />
+        {curtainDone && <FloatingPetals />}
+        <main>
+          <div className={`animate-cascade ${curtainOpen ? "cascade--running" : ""}`} style={{ animationDelay: "0s" }}>
+            <HeroSection revealed={curtainOpen} />
+          </div>
+          <div className={`animate-cascade ${curtainOpen ? "cascade--running" : ""}`} style={{ animationDelay: "0.15s" }}>
+            <SectionDivider />
+          </div>
+          <div className={`animate-cascade ${curtainOpen ? "cascade--running" : ""}`} style={{ animationDelay: "0.3s" }}>
+            <FamiliesSection />
+          </div>
+          <div className={`animate-cascade ${curtainOpen ? "cascade--running" : ""}`} style={{ animationDelay: "0.45s" }}>
+            <SectionDivider />
+          </div>
+          <div className={`animate-cascade ${curtainOpen ? "cascade--running" : ""}`} style={{ animationDelay: "0.6s" }}>
+            <CountdownTimer />
+            <AddToCalendar />
+          </div>
+          <div className={`animate-cascade ${curtainOpen ? "cascade--running" : ""}`} style={{ animationDelay: "0.75s" }}>
+            <SectionDivider />
+          </div>
+          <div className={`animate-cascade ${curtainOpen ? "cascade--running" : ""}`} style={{ animationDelay: "0.9s" }}>
+            <EventsSection />
+          </div>
+          <SectionDivider />
+          <EngagementGallery />
+          <SectionDivider />
+          <VenueSection />
+          <div ref={footerRef}>
+            <Footer />
+          </div>
+        </main>
+        <MusicPlayer revealed={curtainOpen} />
+        <CalendarPromptDialog targetRef={footerRef} />
+      </div>
     </div>
   );
 };

@@ -205,6 +205,123 @@
   100% { opacity: 0; }
 }
 
+/* Text reveal (clip-path wipe) */
+@keyframes text-reveal {
+  0% { clip-path: inset(0 100% 0 0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+
+/* Staggered letter pop */
+@keyframes letter-pop {
+  0% { opacity: 0; transform: translateY(20px) scale(0.5); }
+  60% { transform: translateY(-4px) scale(1.1); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Tilt-in (3D rotate) */
+@keyframes tilt-in {
+  0% { opacity: 0; transform: perspective(600px) rotateX(20deg) translateY(30px); }
+  100% { opacity: 1; transform: perspective(600px) rotateX(0deg) translateY(0); }
+}
+
+/* Glow pulse ring */
+@keyframes glow-ring {
+  0% { box-shadow: 0 0 0 0 hsl(43 76% 52% / 0.4); }
+  70% { box-shadow: 0 0 0 15px hsl(43 76% 52% / 0); }
+  100% { box-shadow: 0 0 0 0 hsl(43 76% 52% / 0); }
+}
+
+/* Flip countdown digit */
+@keyframes flip-digit {
+  0% { transform: perspective(300px) rotateX(0deg); }
+  50% { transform: perspective(300px) rotateX(-90deg); opacity: 0.5; }
+  51% { transform: perspective(300px) rotateX(90deg); opacity: 0.5; }
+  100% { transform: perspective(300px) rotateX(0deg); opacity: 1; }
+}
+
+/* Magnetic hover wobble */
+@keyframes wobble {
+  0%, 100% { transform: rotate(0deg); }
+  15% { transform: rotate(3deg); }
+  30% { transform: rotate(-3deg); }
+  45% { transform: rotate(2deg); }
+  60% { transform: rotate(-1deg); }
+  75% { transform: rotate(0.5deg); }
+}
+
+/* Confetti burst */
+@keyframes confetti-fall {
+  0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+  100% { opacity: 0; transform: translateY(100vh) rotate(720deg) scale(0.3); }
+}
+
+/* Typewriter cursor blink */
+@keyframes cursor-blink {
+  0%, 100% { border-right-color: hsl(43 76% 52%); }
+  50% { border-right-color: transparent; }
+}
+
+/* Parallax float (subtle depth) */
+@keyframes parallax-drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(5px, -8px) rotate(1deg); }
+  50% { transform: translate(-3px, -15px) rotate(-0.5deg); }
+  75% { transform: translate(8px, -5px) rotate(0.5deg); }
+}
+
+/* Staggered card entrance with bounce */
+@keyframes card-bounce-in {
+  0% { opacity: 0; transform: translateY(60px) scale(0.9); }
+  60% { opacity: 1; transform: translateY(-8px) scale(1.02); }
+  80% { transform: translateY(4px) scale(0.99); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* Icon spin on hover */
+@keyframes icon-spin-bounce {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Gold spark trail */
+@keyframes spark-trail {
+  0% { opacity: 1; width: 4px; height: 4px; }
+  50% { opacity: 0.6; width: 12px; height: 2px; }
+  100% { opacity: 0; width: 20px; height: 1px; transform: translateX(30px); }
+}
+
+/* Floating petal drift — variant A (sway left then right) */
+@keyframes petal-drift-a {
+  0%   { transform: translateY(-5vh) translateX(0)  rotate(0deg);   opacity: 0; }
+  10%  { opacity: 1; }
+  25%  { transform: translateY(23vh) translateX(-30px)  rotate(90deg); }
+  50%  { transform: translateY(50vh) translateX(15px)   rotate(180deg); }
+  75%  { transform: translateY(77vh) translateX(-20px)  rotate(270deg); }
+  90%  { opacity: 1; }
+  100% { transform: translateY(105vh) translateX(10px)  rotate(360deg); opacity: 0; }
+}
+
+/* Floating petal drift — variant B (sway right then left) */
+@keyframes petal-drift-b {
+  0%   { transform: translateY(-5vh) translateX(0)    rotate(0deg);    opacity: 0; }
+  10%  { opacity: 1; }
+  25%  { transform: translateY(23vh) translateX(25px)  rotate(-90deg); }
+  50%  { transform: translateY(50vh) translateX(-20px) rotate(-180deg); }
+  75%  { transform: translateY(77vh) translateX(30px)  rotate(-270deg); }
+  90%  { opacity: 1; }
+  100% { transform: translateY(105vh) translateX(-10px) rotate(-360deg); opacity: 0; }
+}
+
+.petal-drift-a {
+  animation: petal-drift-a linear infinite;
+}
+
+.petal-drift-b {
+  animation: petal-drift-b linear infinite;
+}
+
 /* ======================== */
 /* ANIMATION UTILITIES      */
 /* ======================== */
@@ -225,6 +342,32 @@
 .curtain-fade-out {
   animation: curtain-fade-out 900ms ease-in-out forwards;
   pointer-events: none;
+}
+
+/* Background behind curtain panels fades as they slide apart */
+@keyframes curtain-bg-fade {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.curtain-bg-fade {
+  animation: curtain-bg-fade 1.1s ease-in-out forwards;
+}
+
+/* ======================== */
+/* MAIN CONTENT REVEAL      */
+/* ======================== */
+
+/* Content is always in the DOM but invisible until the curtain opens */
+.main-content {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 600ms ease-out, visibility 0s linear 0s;
+}
+
+.main-content--visible {
+  opacity: 1;
+  visibility: visible;
 }
 
 .animate-fade-up {
@@ -286,6 +429,87 @@
 
 .animate-cascade {
   animation: cascade-in 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-play-state: paused;
+}
+
+.cascade--running {
+  animation-play-state: running;
+}
+
+.animate-text-reveal {
+  animation: text-reveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-tilt-in {
+  animation: tilt-in 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-glow-ring {
+  animation: glow-ring 2s ease-in-out infinite;
+}
+
+.animate-flip-digit {
+  animation: flip-digit 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+.animate-wobble:hover {
+  animation: wobble 0.8s ease-in-out;
+}
+
+.animate-card-bounce-in {
+  animation: card-bounce-in 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.animate-parallax-drift {
+  animation: parallax-drift 8s ease-in-out infinite;
+}
+
+.animate-cursor-blink {
+  border-right: 2px solid hsl(43 76% 52%);
+  animation: cursor-blink 0.8s step-end infinite;
+}
+
+/* Magnetic hover effect */
+.magnetic-hover {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.magnetic-hover:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 40px hsl(43 76% 52% / 0.15);
+}
+
+/* Stagger children animation */
+.stagger-children > * {
+  opacity: 0;
+  animation: card-bounce-in 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* Glassmorphism hover lift */
+.glass-lift {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.glass-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px hsl(43 76% 52% / 0.12);
+  border-color: hsl(43 76% 52% / 0.4);
+}
+
+/* Icon hover spin */
+.icon-hover-spin {
+  transition: transform 0.4s ease;
+}
+
+.icon-hover-spin:hover {
+  animation: icon-spin-bounce 0.6s ease-in-out;
 }
 
 /* ======================== */
@@ -336,9 +560,28 @@
   transform: scale(1);
 }
 
+.scroll-animate-tilt {
+  opacity: 0;
+  transform: perspective(600px) rotateX(15deg) translateY(30px);
+  transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-animate-tilt.visible {
+  opacity: 1;
+  transform: perspective(600px) rotateX(0deg) translateY(0);
+}
+
 /* ======================== */
 /* EFFECTS                  */
 /* ======================== */
+
+/* Blur fade from bottom — used on hero bottom 40% */
+.blur-fade-up {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 70%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 70%);
+}
 
 /* Glass morphism */
 .glass {

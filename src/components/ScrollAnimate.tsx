@@ -3,7 +3,7 @@ import { useEffect, useRef, ReactNode } from "react";
 interface ScrollAnimateProps {
   children: ReactNode;
   className?: string;
-  variant?: "up" | "left" | "right" | "scale";
+  variant?: "up" | "left" | "right" | "scale" | "tilt";
   delay?: number;
   threshold?: number;
 }
@@ -46,6 +46,7 @@ const ScrollAnimate = ({
     left: "scroll-animate-left",
     right: "scroll-animate-right",
     scale: "scroll-animate-scale",
+    tilt: "scroll-animate-tilt",
   }[variant];
 
   return (

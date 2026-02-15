@@ -2,7 +2,11 @@ import { ScrollAnimate } from "./ScrollAnimate";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 const Footer = () => {
-  const { t } = useLanguage();
+  const { t, perspective } = useLanguage();
+
+  const footerNames = perspective === "bride"
+    ? `${t("hero.brideName")} & ${t("hero.groomName")}`
+    : t("footer.names");
 
   return (
     <footer className="py-20 px-6 text-center">
@@ -34,7 +38,7 @@ const Footer = () => {
         </p>
 
         <h3 className="font-serif text-2xl md:text-3xl gold-shimmer-text font-semibold">
-          {t("footer.names")}
+          {footerNames}
         </h3>
 
         <div className="mt-8 flex justify-center">

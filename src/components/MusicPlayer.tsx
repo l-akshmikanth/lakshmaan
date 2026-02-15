@@ -3,24 +3,33 @@ import { Volume2, VolumeX } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import weddingMusic from "@/assets/wedding-music.mp3";
 
-const MusicPlayer = () => {
-  const [playing, setPlaying] = useState(true);
+const MusicPlayer = ({ revealed = false }: { revealed?: boolean }) => {
+  const [playing, setPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { t } = useLanguage();
 
-  // Auto-play on mount (works because the curtain interaction provides a user gesture)
+  // Pre-create the audio element on mount so the mp3 starts downloading
   useEffect(() => {
     const audio = new Audio(weddingMusic);
     audio.loop = true;
     audio.volume = 0.3;
+    audio.preload = "auto";
     audioRef.current = audio;
-    audio.play().catch(() => setPlaying(false));
 
     return () => {
       audio.pause();
       audio.src = "";
     };
   }, []);
+
+  // Play once the curtain is opened (user has made a gesture)
+  useEffect(() => {
+    if (revealed && audioRef.current) {
+      audioRef.current.play()
+        .then(() => setPlaying(true))
+        .catch(() => setPlaying(false));
+    }
+  }, [revealed]);
 
   const toggle = () => {
     if (!audioRef.current) return;

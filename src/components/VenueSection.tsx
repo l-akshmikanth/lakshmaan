@@ -16,8 +16,8 @@ const VenueSection = () => {
         </h2>
       </ScrollAnimate>
 
-      <ScrollAnimate className="max-w-3xl mx-auto">
-        <div className="glass rounded-2xl overflow-hidden shadow-lg event-card-shimmer">
+      <ScrollAnimate className="max-w-3xl mx-auto" variant="tilt">
+        <div className="glass rounded-2xl overflow-hidden shadow-lg event-card-shimmer magnetic-hover">
           {/* Map */}
           <div className="w-full h-[300px] md:h-[400px]">
             <iframe

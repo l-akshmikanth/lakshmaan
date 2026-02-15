@@ -56,7 +56,7 @@ const EngagementGallery = () => {
         {engagementPhotos.map((photo, i) => (
           <ScrollAnimate key={photo.id} variant="scale" delay={i * 100}>
             <div
-              className="aspect-square rounded-xl overflow-hidden cursor-pointer bg-champagne shadow-md hover:shadow-xl transition-all duration-500 ken-burns-hover"
+              className="aspect-square rounded-xl overflow-hidden cursor-pointer bg-champagne shadow-md hover:shadow-xl transition-all duration-500 ken-burns-hover glass-lift"
               onClick={() => openLightbox(i)}
               role="button"
               tabIndex={0}
@@ -66,7 +66,7 @@ const EngagementGallery = () => {
                 src={photo.src}
                 alt={photo.alt}
                 className="w-full h-full object-cover"
-                loading="lazy"
+                loading="eager"
               />
             </div>
           </ScrollAnimate>

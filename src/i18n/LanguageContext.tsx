@@ -2,8 +2,11 @@ import { createContext, useContext, useCallback, useEffect, type ReactNode } fro
 import { useLocation, useNavigate } from "react-router-dom";
 import { translations, type Language, type TranslationStrings } from "./translations";
 
+export type Perspective = "bride" | "groom";
+
 interface LanguageContextType {
   language: Language;
+  perspective: Perspective;
   toggleLanguage: () => void;
   t: (key: keyof TranslationStrings) => string;
 }
@@ -17,6 +20,9 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   // Derive language from URL path: /kn → Kannada, everything else → English
   const language: Language = location.pathname.startsWith("/kn") ? "kn" : "en";
 
+  // Derive perspective from URL path: /en/bride or /kn/bride → "bride", otherwise "groom"
+  const perspective: Perspective = location.pathname.includes("/bride") ? "bride" : "groom";
+
   // Sync the <html lang="..."> attribute so CSS :lang() selectors work
   useEffect(() => {
     document.documentElement.lang = language;
@@ -24,8 +30,10 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const toggleLanguage = useCallback(() => {
     const newLang = language === "kn" ? "en" : "kn";
-    navigate(`/${newLang}`);
-  }, [language, navigate]);
+    // Preserve perspective segment when switching language
+    const perspectiveSuffix = perspective === "bride" ? "/bride" : perspective === "groom" && location.pathname.includes("/groom") ? "/groom" : "";
+    navigate(`/${newLang}${perspectiveSuffix}`);
+  }, [language, perspective, location.pathname, navigate]);
 
   const t = useCallback(
     (key: keyof TranslationStrings): string => {
@@ -35,7 +43,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   );
 
   return (
-    <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
+    <LanguageContext.Provider value={{ language, perspective, toggleLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );

@@ -1,7 +1,23 @@
 import { ScrollAnimate } from "./ScrollAnimate";
 
+/** Small decorative petal used beside the divider wave */
+const MiniPetal = ({ className = "" }: { className?: string }) => (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    className={`text-primary/20 animate-float ${className}`}
+  >
+    <path
+      d="M12 2 C6 8, 4 14, 12 22 C20 14, 18 8, 12 2Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
 const SectionDivider = () => (
-  <ScrollAnimate className="flex justify-center py-4" variant="scale">
+  <ScrollAnimate className="flex items-center justify-center gap-3 py-6" variant="scale">
+    <MiniPetal className="-rotate-45 opacity-0 [.visible_&]:opacity-100 transition-opacity duration-700 delay-500" />
     <svg
       width="120"
       height="24"
@@ -19,6 +35,7 @@ const SectionDivider = () => (
       <circle cx="30" cy="12" r="1.5" fill="currentColor" opacity="0.5" />
       <circle cx="90" cy="12" r="1.5" fill="currentColor" opacity="0.5" />
     </svg>
+    <MiniPetal className="rotate-45 opacity-0 [.visible_&]:opacity-100 transition-opacity duration-700 delay-700" />
   </ScrollAnimate>
 );
 

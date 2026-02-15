@@ -3,24 +3,29 @@ import { ScrollAnimate } from "./ScrollAnimate";
 import { useLanguage } from "@/i18n/LanguageContext";
 import heroPhoto from "@/assets/hero-couple.jpg";
 
-const HeroSection = () => {
+const HeroSection = ({ revealed = false }: { revealed?: boolean }) => {
   const [showName, setShowName] = useState(false);
   const [showDate, setShowDate] = useState(false);
   const [showDivider, setShowDivider] = useState(false);
-  const { t, language } = useLanguage();
+  const { t, language, perspective } = useLanguage();
 
   useEffect(() => {
+    if (!revealed) return;
     const t1 = setTimeout(() => setShowName(true), 300);
     const t2 = setTimeout(() => setShowDivider(true), 1200);
     const t3 = setTimeout(() => setShowDate(true), 1600);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
-  }, []);
+  }, [revealed]);
 
   const groomName = t("hero.groomName");
   const brideName = t("hero.brideName");
 
+  // Swap name order based on perspective
+  const firstName = perspective === "bride" ? brideName : groomName;
+  const secondName = perspective === "bride" ? groomName : brideName;
+
   return (
-    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 overflow-hidden">
+    <section id="home" className="relative min-h-screen flex flex-col items-center justify-end px-6 overflow-hidden">
       {/* Full-bleed background image */}
       <div className="absolute inset-0 z-0">
         <img
@@ -28,53 +33,49 @@ const HeroSection = () => {
           alt=""
           className="w-full h-full object-cover animate-ken-burns"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90" />
+        {/* Color fade — smooth transition from photo to site background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 via-[60%] to-background" />
       </div>
 
-      {/* Floating gold particles */}
+      {/* Floating gold petal particles */}
       <div className="absolute inset-0 pointer-events-none z-[1]">
-        {[...Array(25)].map((_, i) => (
-          <div
+        {[...Array(15)].map((_, i) => (
+          <svg
             key={i}
-            className="absolute rounded-full bg-primary/30"
+            className="absolute"
+            width={6 + Math.random() * 8}
+            height={6 + Math.random() * 8}
+            viewBox="0 0 24 24"
             style={{
-              width: `${2 + Math.random() * 4}px`,
-              height: `${2 + Math.random() * 4}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
+              opacity: 0.25 + Math.random() * 0.15,
               animation: `particle-rise ${5 + Math.random() * 6}s ease-in-out infinite`,
               animationDelay: `${Math.random() * 8}s`,
+              transform: `rotate(${Math.random() * 360}deg)`,
             }}
-          />
+          >
+            <path
+              d="M12 2 C6 8, 4 14, 12 22 C20 14, 18 8, 12 2Z"
+              fill="hsl(43 76% 52%)"
+            />
+          </svg>
         ))}
       </div>
 
-      {/* Photo with rotating rings */}
-      <div className="relative mb-10 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-        {/* Outer rotating ring */}
-        <div className="absolute -inset-4 rounded-full border border-primary/20 animate-rotate-slow" />
-        {/* Inner counter-rotating ring */}
-        <div className="absolute -inset-2 rounded-full border border-dashed border-primary/15 animate-rotate-slow-reverse" />
-        {/* Pulsing glow ring */}
-        <div className="absolute -inset-6 rounded-full border border-primary/10 animate-ring-pulse" />
-
-        <div className="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 border-primary/50 overflow-hidden shadow-lg shadow-primary/20 relative z-10">
-          <img src={heroPhoto} alt={t("hero.photoAlt")} className="w-full h-full object-cover" />
-        </div>
-      </div>
-
-      {/* Names with shimmer */}
+      {/* Names + date — anchored in the bottom 40% zone */}
+      <div className="relative z-[2] pb-16 text-center">
       {showName && (
-        <div className="text-center">
+        <div>
           {language === "kn" ? (
             <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-wide gold-text animate-fade-in">
-              {groomName}
+              {firstName}
             </h1>
           ) : (
             <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-wide">
-              {groomName.split("").map((char, i) => (
+              {firstName.split("").map((char, i) => (
                 <span
-                  key={`g-${i}`}
+                  key={`f-${i}`}
                   className="inline-block gold-text animate-fade-in"
                   style={{ animationDelay: `${i * 60}ms` }}
                 >
@@ -91,13 +92,13 @@ const HeroSection = () => {
           </p>
           {language === "kn" ? (
             <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-wide gold-text animate-fade-in" style={{ animationDelay: "0.8s" }}>
-              {brideName}
+              {secondName}
             </h1>
           ) : (
             <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-wide">
-              {brideName.split("").map((char, i) => (
+              {secondName.split("").map((char, i) => (
                 <span
-                  key={`b-${i}`}
+                  key={`s-${i}`}
                   className="inline-block gold-text animate-fade-in"
                   style={{ animationDelay: `${800 + i * 60}ms` }}
                 >
@@ -120,15 +121,9 @@ const HeroSection = () => {
           {t("hero.date")}
         </p>
       )}
+      </div>
 
-      {/* Scroll indicator */}
-      {showDate && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float">
-          <div className="w-5 h-8 rounded-full border border-primary/30 flex justify-center pt-1.5">
-            <div className="w-1 h-2 rounded-full bg-primary/50 animate-fade-up" />
-          </div>
-        </div>
-      )}
+
     </section>
   );
 };
