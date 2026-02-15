@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import CurtainReveal from "@/components/CurtainReveal";
 import NavBar from "@/components/NavBar";
 import HeroSection from "@/components/HeroSection";
@@ -13,39 +13,25 @@ import Footer from "@/components/Footer";
 import MusicPlayer from "@/components/MusicPlayer";
 import FloatingPetals from "@/components/FloatingPetals";
 import CalendarPromptDialog from "@/components/CalendarPromptDialog";
-import TypingIntro from "@/components/TypingIntro";
 import HeartbeatButton from "@/components/HeartbeatButton";
 import { usePreloadMedia } from "@/hooks/use-preload-media";
+import { useAutoScroll } from "@/hooks/use-auto-scroll";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { MusicProvider } from "@/hooks/use-music";
 
 const Index = () => {
   const [curtainOpen, setCurtainOpen] = useState(false);
   const [curtainDone, setCurtainDone] = useState(false);
-  // Typing intro disabled — skip straight to curtain
-  const [typingDone, setTypingDone] = useState(true);
-  const [introFading, setIntroFading] = useState(false);
-  const [introHidden, setIntroHidden] = useState(false);
   const footerRef = useRef<HTMLDivElement>(null);
   const loaded = usePreloadMedia();
   const { t } = useLanguage();
 
-  const handleTypingComplete = useCallback(() => {
-    setTypingDone(true);
-  }, []);
-
-  const introSequence = useMemo(
-    () => [t("intro.step1"), t("intro.step2"), t("intro.step3"), t("intro.step4")],
-    [t]
-  );
-
-  const readyForCurtain = loaded && typingDone;
+  // Auto-scroll the page if the user idles for 6 s after the curtain opens
+  useAutoScroll(curtainDone);
 
   // Fired immediately when user clicks the ribbon — starts revealing the page
   const handleRevealStart = () => {
     setCurtainOpen(true);
-    setIntroFading(true);
-    window.setTimeout(() => setIntroHidden(true), 700);
   };
 
   // Fired after the curtain slide + fade animation fully completes
@@ -56,20 +42,21 @@ const Index = () => {
   return (
     <MusicProvider revealed={curtainOpen}>
       <div className="min-h-screen bg-background overflow-x-hidden">
-      {/* Typing intro disabled — kept for future use
-      {!introHidden && (
-        <TypingIntro
-          sequence={introSequence}
-          onComplete={handleTypingComplete}
-          fading={introFading}
-          showBackdrop={!readyForCurtain}
-          subtitle={t("intro.subtitle")}
-        />
+
+      {/* Loading screen — visible until media is preloaded */}
+      {!loaded && (
+        <div className="fixed inset-0 z-[70] flex flex-col items-center justify-center bg-background">
+          <p className="font-serif text-2xl md:text-4xl tracking-[0.2em] gold-text animate-pulse">
+            {t("curtain.names")}
+          </p>
+          <div className="mt-6 h-0.5 w-24 overflow-hidden rounded-full bg-primary/20">
+            <div className="h-full w-full origin-left animate-loading-bar bg-primary/60" />
+          </div>
+        </div>
       )}
-      */}
 
       {/* Curtain overlay — stays mounted during animation, then unmounts */}
-      {!curtainDone && readyForCurtain && (
+      {!curtainDone && loaded && (
         <CurtainReveal
           onRevealStart={handleRevealStart}
           onRevealComplete={handleRevealComplete}
