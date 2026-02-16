@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useEffect } from "react";
 import CurtainReveal from "@/components/CurtainReveal";
 import NavBar from "@/components/NavBar";
 import HeroSection from "@/components/HeroSection";
@@ -24,14 +25,39 @@ const Index = () => {
   const [curtainDone, setCurtainDone] = useState(false);
   const footerRef = useRef<HTMLDivElement>(null);
   const loaded = usePreloadMedia();
-  const { t } = useLanguage();
+  const { t, perspective } = useLanguage();
 
   // Auto-scroll the page if the user idles for 6 s after the curtain opens
   useAutoScroll(curtainDone);
 
+  // Trigger heartbeat animation 2s after ribbon pull
+  const [heartbeatTriggerCount, setHeartbeatTriggerCount] = useState(0);
+  const heartbeatTimeoutRef = useRef<number | null>(null);
+  const scheduleHeartbeat = () => {
+    // clear previous timeout if any
+    if (heartbeatTimeoutRef.current) {
+      window.clearTimeout(heartbeatTimeoutRef.current);
+    }
+    // schedule a heartbeat 2s after ribbon pull
+    heartbeatTimeoutRef.current = window.setTimeout(() => {
+      setHeartbeatTriggerCount((c) => c + 1);
+      heartbeatTimeoutRef.current = null;
+    }, 2000);
+  };
+
+  // cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (heartbeatTimeoutRef.current) {
+        window.clearTimeout(heartbeatTimeoutRef.current);
+      }
+    };
+  }, []);
+
   // Fired immediately when user clicks the ribbon — starts revealing the page
   const handleRevealStart = () => {
     setCurtainOpen(true);
+    scheduleHeartbeat();
   };
 
   // Fired after the curtain slide + fade animation fully completes
@@ -47,7 +73,9 @@ const Index = () => {
       {!loaded && (
         <div className="fixed inset-0 z-[70] flex flex-col items-center justify-center bg-background">
           <p className="font-serif text-2xl md:text-4xl tracking-[0.2em] gold-text animate-pulse">
-            {t("curtain.names")}
+            {perspective === "bride"
+              ? `${t("hero.brideName")} & ${t("hero.groomName")}`
+              : t("curtain.names")}
           </p>
           <div className="mt-6 h-0.5 w-24 overflow-hidden rounded-full bg-primary/20">
             <div className="h-full w-full origin-left animate-loading-bar bg-primary/60" />
@@ -104,7 +132,7 @@ const Index = () => {
           </div>
         </main>
         <MusicPlayer />
-        <HeartbeatButton />
+        <HeartbeatButton triggerCount={heartbeatTriggerCount} />
         <CalendarPromptDialog targetRef={footerRef} />
       </div>
     </div>

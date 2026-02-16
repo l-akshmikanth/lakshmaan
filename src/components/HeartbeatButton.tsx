@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Heart } from "lucide-react";
 import { useMusic } from "@/hooks/use-music";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -8,7 +8,11 @@ interface BloomingHeart {
   variant: "left" | "right";
 }
 
-const HeartbeatButton = () => {
+interface Props {
+  triggerCount?: number;
+}
+
+const HeartbeatButton = ({ triggerCount = 0 }: Props) => {
   const [isBeating, setIsBeating] = useState(false);
   const [bloomingHearts, setBloomingHearts] = useState<BloomingHeart[]>([]);
   const [showNameMerge, setShowNameMerge] = useState(false);
@@ -70,6 +74,18 @@ const HeartbeatButton = () => {
       setIsBeating(false);
     }, 2800); // Animation duration + small buffer
   };
+
+  // Auto-trigger when parent increments `triggerCount` (e.g., ribbon pulled)
+  const prevTriggerRef = useRef<number>(triggerCount);
+  useEffect(() => {
+    if (triggerCount && triggerCount !== prevTriggerRef.current) {
+      prevTriggerRef.current = triggerCount;
+      // don't attempt to re-trigger if already animating
+      if (!isBeating) {
+        handleClick();
+      }
+    }
+  }, [triggerCount]);
 
   // Get names based on language
   const groomName = t("hero.groomName"); // Lakshmikanth / ಲಕ್ಷ್ಮೀಕಾಂತ್

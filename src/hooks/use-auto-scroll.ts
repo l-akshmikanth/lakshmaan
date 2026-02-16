@@ -17,7 +17,7 @@ const USER_EVENTS: (keyof WindowEventMap)[] = [
 
 export const useAutoScroll = (
   enabled: boolean,
-  idleMs = 3000,
+  idleMs = 2000,
   resumeIdleMs = 3000
 ) => {
   const rafRef = useRef<number>(0);

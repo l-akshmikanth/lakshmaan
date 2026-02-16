@@ -19,7 +19,7 @@ const CalendarPromptDialog = ({ targetRef }: CalendarPromptDialogProps) => {
   const hasShown = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const { t } = useLanguage();
+  const { t, perspective } = useLanguage();
 
   useEffect(() => {
     const el = targetRef.current;
@@ -81,12 +81,12 @@ const CalendarPromptDialog = ({ targetRef }: CalendarPromptDialogProps) => {
                   {t(e.labelKey)}
                 </p>
                 <p className="font-sans text-xs text-muted-foreground mt-0.5 truncate">
-                  {e.title.split(" – ")[1] || e.title}
+                  {e.getTitleEn(perspective).split(" – ")[1] || e.getTitleEn(perspective)}
                 </p>
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
                 <a
-                  href={googleCalUrl(e)}
+                  href={googleCalUrl(e, perspective)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full border border-primary/30 font-sans text-xs tracking-wider uppercase text-foreground hover:bg-primary/10 transition-all duration-300 hover:border-primary/60"
@@ -95,7 +95,7 @@ const CalendarPromptDialog = ({ targetRef }: CalendarPromptDialogProps) => {
                   {t("calendar.google")}
                 </a>
                 <button
-                  onClick={() => downloadIcs(e)}
+                  onClick={() => downloadIcs(e, perspective)}
                   className="inline-flex items-center gap-1 px-2.5 py-2 rounded-full border border-primary/30 font-sans text-xs tracking-wider uppercase text-foreground hover:bg-primary/10 transition-all duration-300 hover:border-primary/60"
                   aria-label={`Download ${t(e.labelKey)} .ics file`}
                 >

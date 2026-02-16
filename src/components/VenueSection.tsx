@@ -44,7 +44,7 @@ const VenueSection = () => {
               {t("venue.location")}
             </p>
             <a
-              href="https://www.google.com/maps/place/Surabhi+Kalyana+Mantapa/@12.5236953,76.8703581,17z"
+              href="https://www.google.com/maps/search/?api=1&query=Surabhi+Kalyana+Mantapa,+Mandya,+Karnataka"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-sans text-sm font-medium hover:bg-primary/90 transition-all duration-300 shadow-md hover:shadow-lg btn-ripple group"
