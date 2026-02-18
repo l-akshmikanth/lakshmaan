@@ -30,14 +30,14 @@ const CalendarPromptDialog = ({ targetRef }: CalendarPromptDialogProps) => {
         if (hasShown.current) return;
 
         if (entry.isIntersecting) {
-          // Start 4-second timer when footer becomes visible
+          // Start 2-second timer when footer becomes visible
           timerRef.current = setTimeout(() => {
             if (!hasShown.current) {
               hasShown.current = true;
               setOpen(true);
               observerRef.current?.disconnect();
             }
-          }, 4000);
+          }, 2000);
         } else {
           // User scrolled away — cancel the timer
           if (timerRef.current) {

@@ -295,70 +295,86 @@
 /* Heart backdrop fade in/out */
 @keyframes heart-backdrop-fade {
   0%   { opacity: 0; }
-  15%  { opacity: 1; }
-  80%  { opacity: 1; }
+  10%  { opacity: 1; }
+  85%  { opacity: 1; }
   100% { opacity: 0; }
 }
 
-/* Heart backdrop pulse synced to heartbeat lub-dub x2 */
+/* Heart backdrop pulse synced to heartbeat lub-dub x3 */
 @keyframes heart-backdrop-pulse {
   0%   { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-  8%   { transform: translate(-50%, -50%) scale(1);   opacity: 1; }
+  6%   { transform: translate(-50%, -50%) scale(1);   opacity: 1; }
   /* First LUB */
-  12%  { transform: translate(-50%, -50%) scale(1.08); }
-  16%  { transform: translate(-50%, -50%) scale(1);    }
+  8%   { transform: translate(-50%, -50%) scale(1.08); }
+  12%  { transform: translate(-50%, -50%) scale(1);    }
   /* First DUB */
-  20%  { transform: translate(-50%, -50%) scale(1.04); }
-  24%  { transform: translate(-50%, -50%) scale(1);    }
+  16%  { transform: translate(-50%, -50%) scale(1.04); }
+  20%  { transform: translate(-50%, -50%) scale(1);    }
   /* Rest */
-  35%  { transform: translate(-50%, -50%) scale(1);    }
+  28%  { transform: translate(-50%, -50%) scale(1);    }
   /* Second LUB */
-  39%  { transform: translate(-50%, -50%) scale(1.08); }
-  43%  { transform: translate(-50%, -50%) scale(1);    }
+  32%  { transform: translate(-50%, -50%) scale(1.08); }
+  36%  { transform: translate(-50%, -50%) scale(1);    }
   /* Second DUB */
-  47%  { transform: translate(-50%, -50%) scale(1.04); }
-  51%  { transform: translate(-50%, -50%) scale(1);    }
+  40%  { transform: translate(-50%, -50%) scale(1.04); }
+  44%  { transform: translate(-50%, -50%) scale(1);    }
+  /* Rest */
+  52%  { transform: translate(-50%, -50%) scale(1);    }
+  /* Third LUB */
+  56%  { transform: translate(-50%, -50%) scale(1.08); }
+  60%  { transform: translate(-50%, -50%) scale(1);    }
+  /* Third DUB */
+  64%  { transform: translate(-50%, -50%) scale(1.04); }
+  68%  { transform: translate(-50%, -50%) scale(1);    }
   /* Settle */
-  75%  { transform: translate(-50%, -50%) scale(1);    opacity: 1; }
+  80%  { transform: translate(-50%, -50%) scale(1);    opacity: 1; }
   100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0; }
 }
 
-/* Heartbeat pulse - lub-dub pattern repeated twice */
+/* Heartbeat pulse - lub-dub pattern repeated three times */
 @keyframes heartbeat-pulse {
   0% { transform: scale(1) rotate(0deg); }
   /* First LUB - stronger beat */
-  4% { transform: scale(1.35) rotate(12deg); }
-  8% { transform: scale(1) rotate(0deg); }
-  /* Pause */
-  10% { transform: scale(1) rotate(0deg); }
+  8%  { transform: scale(1.35) rotate(12deg); }
+  12% { transform: scale(1) rotate(0deg); }
   /* First DUB - weaker beat */
-  14% { transform: scale(1.2) rotate(-8deg); }
-  18% { transform: scale(1) rotate(0deg); }
+  16% { transform: scale(1.2) rotate(-8deg); }
+  20% { transform: scale(1) rotate(0deg); }
   /* Rest between cycles */
-  30% { transform: scale(1) rotate(0deg); }
-  /* Second LUB - stronger beat */
-  34% { transform: scale(1.35) rotate(12deg); }
-  38% { transform: scale(1) rotate(0deg); }
-  /* Pause */
-  40% { transform: scale(1) rotate(0deg); }
-  /* Second DUB - weaker beat */
-  44% { transform: scale(1.2) rotate(-8deg); }
-  48% { transform: scale(1) rotate(0deg); }
+  28% { transform: scale(1) rotate(0deg); }
+  /* Second LUB */
+  32% { transform: scale(1.35) rotate(12deg); }
+  36% { transform: scale(1) rotate(0deg); }
+  /* Second DUB */
+  40% { transform: scale(1.2) rotate(-8deg); }
+  44% { transform: scale(1) rotate(0deg); }
+  /* Rest between cycles */
+  52% { transform: scale(1) rotate(0deg); }
+  /* Third LUB */
+  56% { transform: scale(1.35) rotate(12deg); }
+  60% { transform: scale(1) rotate(0deg); }
+  /* Third DUB */
+  64% { transform: scale(1.2) rotate(-8deg); }
+  68% { transform: scale(1) rotate(0deg); }
   /* Final rest */
   100% { transform: scale(1) rotate(0deg); }
 }
 
 /* Heartbeat expanding ring */
 @keyframes heartbeat-ring {
-  0% { transform: scale(1); opacity: 0.8; }
+  0%  { transform: scale(1); opacity: 0.8; }
   /* First beat waves */
-  6% { transform: scale(1.3); opacity: 0.6; }
-  12% { transform: scale(1.6); opacity: 0.4; }
-  18% { transform: scale(1.9); opacity: 0.2; }
+  10% { transform: scale(1.3); opacity: 0.6; }
+  16% { transform: scale(1.6); opacity: 0.4; }
+  20% { transform: scale(1.9); opacity: 0.2; }
   /* Second beat waves */
-  36% { transform: scale(1.3); opacity: 0.6; }
-  42% { transform: scale(1.6); opacity: 0.4; }
-  48% { transform: scale(1.9); opacity: 0.2; }
+  34% { transform: scale(1.3); opacity: 0.6; }
+  40% { transform: scale(1.6); opacity: 0.4; }
+  44% { transform: scale(1.9); opacity: 0.2; }
+  /* Third beat waves */
+  58% { transform: scale(1.3); opacity: 0.6; }
+  64% { transform: scale(1.6); opacity: 0.4; }
+  68% { transform: scale(1.9); opacity: 0.2; }
   100% { transform: scale(2.5); opacity: 0; }
 }
 
@@ -773,11 +789,11 @@
 }
 
 .animate-heartbeat-pulse {
-  animation: heartbeat-pulse 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: heartbeat-pulse 3.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 .animate-heartbeat-ring {
-  animation: heartbeat-ring 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: heartbeat-ring 3.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 .animate-heart-backdrop-fade {

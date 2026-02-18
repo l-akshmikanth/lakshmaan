@@ -77,7 +77,14 @@ const CurtainReveal = ({
     ));
 
   return (
-    <div className={`fixed inset-0 z-50 ${fading ? "curtain-fade-out" : ""}`} aria-label={t("curtain.aria")}>
+    <div
+      className={`fixed inset-0 z-50 ${fading ? "curtain-fade-out" : ""} ${!isOpening && loaded ? "cursor-pointer" : ""}`}
+      aria-label={t("curtain.aria")}
+      onClick={!isOpening && loaded ? handleOpen : undefined}
+      role="button"
+      tabIndex={!isOpening && loaded ? 0 : -1}
+      onKeyDown={(e) => !isOpening && loaded && e.key === "Enter" && handleOpen()}
+    >
       {/* Language toggle */}
       <div className="absolute top-6 right-6 z-40">
         <LanguageToggle />

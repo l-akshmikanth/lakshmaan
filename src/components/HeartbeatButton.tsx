@@ -37,8 +37,8 @@ const HeartbeatButton = ({ triggerCount = 0 }: Props) => {
     if (isBeating) return;
 
     // Trigger vibration immediately on click (user gesture)
-    // Heartbeat pattern: lub-dub repeated twice
-    vibrate([200, 70, 150, 300, 200, 70, 150]);
+    // Heartbeat pattern: lub-dub repeated three times
+    vibrate([200, 70, 150, 300, 200, 70, 150, 300, 200, 70, 150]);
 
     setIsBeating(true);
     setShowNameMerge(true);
@@ -72,7 +72,7 @@ const HeartbeatButton = ({ triggerCount = 0 }: Props) => {
     // Resume after heartbeat animation
     setTimeout(() => {
       setIsBeating(false);
-    }, 2800); // Animation duration + small buffer
+    }, 3800); // Animation duration (3.5s) + small buffer
   };
 
   // Auto-trigger when parent increments `triggerCount` (e.g., ribbon pulled)
@@ -114,7 +114,7 @@ const HeartbeatButton = ({ triggerCount = 0 }: Props) => {
       {bloomingHearts.map((heart) => (
         <div
           key={heart.id}
-          className="fixed bottom-[38px] left-[38px] z-50 pointer-events-none"
+          className="fixed bottom-[38px] left-[38px] z-[60] pointer-events-none"
           style={{
             animation: `heart-bloom-${heart.variant} 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards`,
           }}
@@ -137,13 +137,11 @@ const HeartbeatButton = ({ triggerCount = 0 }: Props) => {
       {/* Name Merge Animation - Lakshmikanth + Maanya = Lakshmaan */}
       {showNameMerge && (
         <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
-          {/* Soft full-screen backdrop blur */}
+          {/* Soft full-screen backdrop (no blur — keeps bloom hearts crisp) */}
           <div
             className="absolute inset-0 animate-heart-backdrop-fade"
             style={{
-              background: 'radial-gradient(ellipse 60% 60% at center, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.3) 40%, transparent 70%)',
-              backdropFilter: 'blur(6px)',
-              WebkitBackdropFilter: 'blur(6px)',
+              background: 'radial-gradient(ellipse 60% 60% at center, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.5) 40%, rgba(255,255,255,0.15) 70%, transparent 100%)',
             }}
           />
 
