@@ -82,6 +82,8 @@ export interface TranslationStrings {
   "footer.message": string;
   "footer.names": string;
   "footer.madeWithLove": string;
+  "footer.promoTitle": string;
+  "footer.promoLink": string;
 
   // Calendar Prompt
   "calendarPrompt.title": string;
@@ -179,6 +181,8 @@ export const translations: Record<Language, TranslationStrings> = {
     "footer.message": "ನಿಮ್ಮನ್ನು ನಮ್ಮ ಜೀವನದಲ್ಲಿ ಹೊಂದಿರುವುದು ನಮ್ಮ ಸೌಭಾಗ್ಯ. ನಮ್ಮ ವಿಶೇಷ ದಿನದಂದು ನಿಮ್ಮ ಉಪಸ್ಥಿತಿಯಿಂದ ನಮಗೆ ಸಂತೋಷವಾಗುತ್ತದೆ.",
     "footer.names": "ಲಕ್ಷ್ಮೀಕಾಂತ್ & ಮಾನ್ಯ",
     "footer.madeWithLove": "ಪ್ರೀತಿಯಿಂದ ❤️ ಲಕ್ಷ್ಮಣ್",
+    "footer.promoTitle": "ಮದುವೆ ವೆಬ್‌ಸೈಟ್ ಬೇಕೇ? ನನ್ನ ಪೋರ್ಟ್‌ಫೋಲಿಯೋ ನೋಡಿ",
+    "footer.promoLink": "ಪೋರ್ಟ್‌ಫೋಲಿಯೋ ಭೇಟಿ ಮಾಡಿ",
 
     // Calendar Prompt
     "calendarPrompt.title": "ನಮ್ಮ ವಿವಾಹದ ದಿನಾಂಕವನ್ನು ಕಾಯ್ದಿರಿಸಿ ✨",
@@ -275,6 +279,8 @@ export const translations: Record<Language, TranslationStrings> = {
     "footer.message": "We are blessed to have you in our lives and would be honored by your presence on our special day.",
     "footer.names": "Lakshmikanth & Maanya",
     "footer.madeWithLove": "Made with love ❤️ LakshMaan",
+    "footer.promoTitle": "Need a wedding website? Check out my portfolio",
+    "footer.promoLink": "Visit Portfolio",
 
     // Calendar Prompt
     "calendarPrompt.title": "Save Our Date ✨",

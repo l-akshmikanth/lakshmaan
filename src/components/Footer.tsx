@@ -1,3 +1,4 @@
+import { ExternalLink } from "lucide-react";
 import { ScrollAnimate } from "./ScrollAnimate";
 import { useLanguage } from "@/i18n/LanguageContext";
 
@@ -48,6 +49,22 @@ const Footer = () => {
         <p className="mt-6 font-sans text-xs text-muted-foreground/60">
           {t("footer.madeWithLove")}
         </p>
+
+        {/* Portfolio promo card */}
+        <div className="mt-10 max-w-sm mx-auto glass rounded-2xl border border-primary/10 px-6 py-5">
+          <p className="font-sans text-sm text-muted-foreground mb-3">
+            {t("footer.promoTitle")}
+          </p>
+          <a
+            href="https://l-akshmikanth.github.io/l-akshmikanth/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 font-sans text-sm font-medium gold-shimmer-text hover:opacity-80 transition-opacity"
+          >
+            {t("footer.promoLink")}
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        </div>
       </ScrollAnimate>
     </footer>
   );
