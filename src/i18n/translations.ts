@@ -96,6 +96,20 @@ export interface TranslationStrings {
 
   // Heartbeat
   "heartbeat.aria": string;
+
+  // Celebration (post-wedding)
+  "celebration.badge": string;
+  "celebration.heading": string;
+  "celebration.message": string;
+  "celebration.gratitude": string;
+
+  // Wedding Gallery
+  "weddingGallery.subtitle": string;
+  "weddingGallery.heading": string;
+  "weddingGallery.date": string;
+  "weddingGallery.closeAria": string;
+  "weddingGallery.prevAria": string;
+  "weddingGallery.nextAria": string;
 }
 
 export const translations: Record<Language, TranslationStrings> = {
@@ -195,6 +209,20 @@ export const translations: Record<Language, TranslationStrings> = {
 
     // Heartbeat
     "heartbeat.aria": "ಹೃದಯ ಬಡಿತ",
+
+    // Celebration (post-wedding)
+    "celebration.badge": "💍 ನಾವು ಮದುವೆಯಾದೆವು!",
+    "celebration.heading": "ಮಂಗಳ ಮುಹೂರ್ತ ಮುಗಿಯಿತು",
+    "celebration.message": "ನೀವು ಇದನ್ನು ಓದುತ್ತಿದ್ದರೆ, ಮಂಗಳ ಮುಹೂರ್ತದಲ್ಲಿ ಮಾಂಗಲ್ಯ ಧಾರಣೆಯಾಗಿದೆ, ಅಕ್ಷತೆ ಮಳೆ ಸುರಿದಿದೆ, ಮತ್ತು ಸುರಭಿ ಕಲ್ಯಾಣ ಮಂಟಪದಲ್ಲಿ ಅಗ್ನಿ ಸಾಕ್ಷಿಯಾಗಿ ನಮ್ಮ ಸಪ್ತಪದಿ ಮುಗಿದಿದೆ. 🌸 ಮಲ್ಲಿಗೆ ಹೂವಿನ ಸುವಾಸನೆ, ಹಿರಿಯರ ಆಶೀರ್ವಾದ, ನಾದಸ್ವರದ ನಾದ — ಎಲ್ಲವೂ ನಮ್ಮ ಮನದಲ್ಲಿ ಶಾಶ್ವತ. ನಾದಸ್ವರ ನಿಂತ ಮೇಲೂ, ಕೊನೆಯ ಅಕ್ಷತೆ ಬಿದ್ದ ಮೇಲೂ ಇಲ್ಲಿಗೆ ಬಂದ ನಿಮಗೆ ಅಪಾರ ಕೃತಜ್ಞತೆ. ನಿಮ್ಮ ಹಾರೈಕೆ ನಾವು ಸದಾ ಧರಿಸುವ ಮಾಲೆ.",
+    "celebration.gratitude": "ಪ್ರೀತಿಯಿಂದ — ಲಕ್ಷ್ಮೀಕಾಂತ್ & ಮಾನ್ಯ 💛",
+
+    // Wedding Gallery
+    "weddingGallery.subtitle": "ನಮ್ಮ ಮದುವೆಯ ಕ್ಷಣಗಳು",
+    "weddingGallery.heading": "ನಮ್ಮ ಮದುವೆ",
+    "weddingGallery.date": "ಮಾರ್ಚ್ ೭–೮, ೨೦೨೬",
+    "weddingGallery.closeAria": "ಮುಚ್ಚಿ",
+    "weddingGallery.prevAria": "ಹಿಂದಿನ ಫೋಟೋ",
+    "weddingGallery.nextAria": "ಮುಂದಿನ ಫೋಟೋ",
   },
 
   en: {
@@ -293,5 +321,19 @@ export const translations: Record<Language, TranslationStrings> = {
 
     // Heartbeat
     "heartbeat.aria": "Feel the heartbeat",
+
+    // Celebration (post-wedding)
+    "celebration.badge": "💍 We're Married!",
+    "celebration.heading": "The Muhurtha Has Passed",
+    "celebration.message": "If you're reading this, the Mangalya has been tied at the auspicious muhurtha, the Akshates have been showered with love, and the sacred fire at Surabhi Kalyana Mantapa bore witness to our Saptapadi. 🌸 From the fragrance of mallige hoovu to the blessings of our elders and the melody of the nadaswaram — every moment of March 8th is sealed in our hearts forever. Thank you for finding your way here, even after the nadaswaram has fallen silent and the last akshate has settled. Your wishes are the garland we will wear forever.",
+    "celebration.gratitude": "With all our love from — Lakshmikanth & Maanya 💛",
+
+    // Wedding Gallery
+    "weddingGallery.subtitle": "Our wedding memories",
+    "weddingGallery.heading": "Our Wedding",
+    "weddingGallery.date": "March 7–8, 2026",
+    "weddingGallery.closeAria": "Close lightbox",
+    "weddingGallery.prevAria": "Previous photo",
+    "weddingGallery.nextAria": "Next photo",
   },
 };

@@ -5,10 +5,10 @@ import NavBar from "@/components/NavBar";
 import HeroSection from "@/components/HeroSection";
 import SectionDivider from "@/components/SectionDivider";
 import FamiliesSection from "@/components/FamiliesSection";
-import CountdownTimer from "@/components/CountdownTimer";
-import AddToCalendar from "@/components/AddToCalendar";
+import WeddingCelebrationSection from "@/components/WeddingCelebrationSection";
 import EventsSection from "@/components/EventsSection";
 import EngagementGallery from "@/components/EngagementGallery";
+import WeddingGallery from "@/components/WeddingGallery";
 import VenueSection from "@/components/VenueSection";
 import Footer from "@/components/Footer";
 import MusicPlayer from "@/components/MusicPlayer";
@@ -114,8 +114,7 @@ const Index = () => {
             <SectionDivider />
           </div>
           <div className={`animate-cascade ${curtainOpen ? "cascade--running" : ""}`} style={{ animationDelay: "0.6s" }}>
-            <CountdownTimer />
-            <AddToCalendar />
+            <WeddingCelebrationSection />
           </div>
           <div className={`animate-cascade ${curtainOpen ? "cascade--running" : ""}`} style={{ animationDelay: "0.75s" }}>
             <SectionDivider />
@@ -125,6 +124,8 @@ const Index = () => {
           </div>
           <SectionDivider />
           <EngagementGallery />
+          <SectionDivider />
+          <WeddingGallery />
           <SectionDivider />
           <VenueSection />
           <div ref={footerRef}>
