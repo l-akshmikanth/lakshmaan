@@ -1,9 +1,31 @@
+import { useRef, useEffect } from "react";
 import { ScrollAnimate } from "./ScrollAnimate";
 import KolamPattern from "./KolamPattern";
 import { useLanguage } from "@/i18n/LanguageContext";
+import bulletTimeVideo from "@/assets/bullet-time.mp4";
 
 const WeddingCelebrationSection = () => {
   const { t } = useLanguage();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section className="relative py-20 px-6 overflow-hidden" id="celebration">
@@ -57,6 +79,25 @@ const WeddingCelebrationSection = () => {
           <p className="font-serif text-lg md:text-xl gold-shimmer-text font-medium">
             {t("celebration.gratitude")}
           </p>
+        </ScrollAnimate>
+
+        {/* Bullet-time video */}
+        <ScrollAnimate delay={600}>
+          <div className="mt-10 rounded-2xl overflow-hidden border border-primary/20 glass">
+            <video
+              ref={videoRef}
+              src={bulletTimeVideo}
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              className="w-full"
+              aria-label={t("celebration.videoCaption")}
+            />
+            <p className="py-3 text-center font-sans text-xs text-muted-foreground/70">
+              {t("celebration.videoCaption")}
+            </p>
+          </div>
         </ScrollAnimate>
       </div>
     </section>

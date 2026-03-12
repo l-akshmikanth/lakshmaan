@@ -102,6 +102,7 @@ export interface TranslationStrings {
   "celebration.heading": string;
   "celebration.message": string;
   "celebration.gratitude": string;
+  "celebration.videoCaption": string;
 
   // Wedding Gallery
   "weddingGallery.subtitle": string;
@@ -215,6 +216,7 @@ export const translations: Record<Language, TranslationStrings> = {
     "celebration.heading": "ಮಂಗಳ ಮುಹೂರ್ತ ಮುಗಿಯಿತು",
     "celebration.message": "ನೀವು ಇದನ್ನು ಓದುತ್ತಿದ್ದರೆ, ಮಂಗಳ ಮುಹೂರ್ತದಲ್ಲಿ ಮಾಂಗಲ್ಯ ಧಾರಣೆಯಾಗಿದೆ, ಅಕ್ಷತೆ ಮಳೆ ಸುರಿದಿದೆ, ಮತ್ತು ಸುರಭಿ ಕಲ್ಯಾಣ ಮಂಟಪದಲ್ಲಿ ಅಗ್ನಿ ಸಾಕ್ಷಿಯಾಗಿ ನಮ್ಮ ಸಪ್ತಪದಿ ಮುಗಿದಿದೆ. 🌸 ಮಲ್ಲಿಗೆ ಹೂವಿನ ಸುವಾಸನೆ, ಹಿರಿಯರ ಆಶೀರ್ವಾದ, ನಾದಸ್ವರದ ನಾದ — ಎಲ್ಲವೂ ನಮ್ಮ ಮನದಲ್ಲಿ ಶಾಶ್ವತ. ನಾದಸ್ವರ ನಿಂತ ಮೇಲೂ, ಕೊನೆಯ ಅಕ್ಷತೆ ಬಿದ್ದ ಮೇಲೂ ಇಲ್ಲಿಗೆ ಬಂದ ನಿಮಗೆ ಅಪಾರ ಕೃತಜ್ಞತೆ. ನಿಮ್ಮ ಹಾರೈಕೆ ನಾವು ಸದಾ ಧರಿಸುವ ಮಾಲೆ.",
     "celebration.gratitude": "ಪ್ರೀತಿಯಿಂದ — ಲಕ್ಷ್ಮೀಕಾಂತ್ & ಮಾನ್ಯ 💛",
+    "celebration.videoCaption": "ನಮ್ಮ ಬುಲೆಟ್ ಟೈಮ್ ಕ್ಷಣ",
 
     // Wedding Gallery
     "weddingGallery.subtitle": "ನಮ್ಮ ಮದುವೆಯ ಕ್ಷಣಗಳು",
@@ -327,6 +329,7 @@ export const translations: Record<Language, TranslationStrings> = {
     "celebration.heading": "The Muhurtha Has Passed",
     "celebration.message": "If you're reading this, the Mangalya has been tied at the auspicious muhurtha, the Akshates have been showered with love, and the sacred fire at Surabhi Kalyana Mantapa bore witness to our Saptapadi. 🌸 From the fragrance of mallige hoovu to the blessings of our elders and the melody of the nadaswaram — every moment of March 8th is sealed in our hearts forever. Thank you for finding your way here, even after the nadaswaram has fallen silent and the last akshate has settled. Your wishes are the garland we will wear forever.",
     "celebration.gratitude": "With all our love from — Lakshmikanth & Maanya 💛",
+    "celebration.videoCaption": "Our Bullet Time Moment",
 
     // Wedding Gallery
     "weddingGallery.subtitle": "Our wedding memories",

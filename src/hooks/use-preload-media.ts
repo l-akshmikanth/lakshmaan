@@ -8,6 +8,7 @@ import engagement4 from "@/assets/engagement-4.jpg";
 import engagement5 from "@/assets/engagement-5.jpg";
 import engagement6 from "@/assets/engagement-6.jpg";
 import weddingMusic from "@/assets/wedding-music.mp3";
+import bulletTimeVideo from "@/assets/bullet-time.mp4";
 
 const PRELOAD_IMAGES = [
   heroPhoto,
@@ -44,11 +45,19 @@ export const usePreloadMedia = () => {
       audio.src = weddingMusic;
     });
 
+    const videoPromise = new Promise<void>((resolve) => {
+      const video = document.createElement("video");
+      video.preload = "auto";
+      video.oncanplaythrough = () => resolve();
+      video.onerror = () => resolve();
+      video.src = bulletTimeVideo;
+    });
+
     const safetyTimer = window.setTimeout(() => {
       if (!cancelled) setLoaded(true);
     }, SAFETY_TIMEOUT_MS);
 
-    Promise.all([...imagePromises, audioPromise]).then(() => {
+    Promise.all([...imagePromises, audioPromise, videoPromise]).then(() => {
       if (!cancelled) setLoaded(true);
     });
 
